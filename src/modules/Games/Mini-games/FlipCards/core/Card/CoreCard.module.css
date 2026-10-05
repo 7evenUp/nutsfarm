@@ -1,0 +1,35 @@
+.card {
+  perspective: 1000px;
+  position: relative;
+}
+
+.front {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  backface-visibility: hidden;
+  transition: transform 0.5s;
+  transform: rotateY(180deg);
+}
+
+.front_active {
+  transform: rotateY(0deg);
+}
+
+.back {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  backface-visibility: hidden;
+  transition: transform 0.5s;
+  transform: rotateY(180deg);
+}
+.back_active {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  backface-visibility: hidden;
+  transition: transform 0.5s;
+  transform: rotateY(1turn);
+}

@@ -1,0 +1,66 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: ["main", "dev"]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout repository with full history
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@master
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      - name: Rebuild and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          file: ./Dockerfile
+    
+      - name: Set Webhook Variables for Main Branch
+        env:
+          HTTP_PROXY: ${{ secrets.HTTP_PROXY }}
+          HTTPS_PROXY: ${{ secrets.HTTPS_PROXY }}
+        if: github.ref == 'refs/heads/main'
+        run: |
+          echo "WEBHOOK=${{ secrets.WEBHOOK_PROD }}" >> $GITHUB_ENV
+
+      - name: Set Webhook Variables for Dev Branch
+        env:
+          HTTP_PROXY: ${{ secrets.HTTP_PROXY }}
+          HTTPS_PROXY: ${{ secrets.HTTPS_PROXY }}
+        if: github.ref == 'refs/heads/dev'
+        run: |
+          echo "WEBHOOK=${{ secrets.WEBHOOK_DEV }}" >> $GITHUB_ENV
+
+      - name: Webhook
+        env:
+          HTTP_PROXY: ${{ secrets.HTTP_PROXY }}
+          HTTPS_PROXY: ${{ secrets.HTTPS_PROXY }}
+        run: |
+          curl -k -X POST -H "Content-Type: application/json" -H "X-Webhook-Signature: ${{ secrets.WEBHOOK_SECRET }}" -d '{"text": "Docker image build complete: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.tags }}", "repository": "${{ github.repository }}", "ref": "${{ github.ref }}", "commit": "${{ github.sha }}"}' $WEBHOOK

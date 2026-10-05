@@ -1,0 +1,54 @@
+export interface ShowPromiseResult {
+  done: boolean
+  description: string
+  state: "load" | "render" | "playing" | "destroy"
+  error: boolean
+}
+
+type BannerType = "RewardedVideo" | "FullscreenMedia"
+
+interface AdsgramInitParams {
+  blockId: string
+  debug?: boolean
+  debugBannerType?: BannerType
+}
+
+type EventType =
+  | "onReward"
+  | "onComplete"
+  | "onStart"
+  | "onSkip"
+  | "onBannerNotFound"
+  | "onNonStopShow"
+  | "onTooLongSession"
+  | "onError"
+type HandlerType = () => void
+
+export interface AdController {
+  show(): Promise<ShowPromiseResult>
+  addEventListener(event: EventType, handler: HandlerType): void
+  removeEventListener(event: EventType, handler: HandlerType): void
+  destroy(): void
+}
+
+declare global {
+  interface Window {
+    Adsgram?: {
+      init(params: AdsgramInitParams): AdController
+    }
+  }
+}
+
+import { DOMAttributes } from "react"
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type CustomElement<T> = Partial<T & DOMAttributes<T> & { children: any }> &
+  LibraryManagedAttributes
+
+declare module "react/jsx-runtime" {
+  namespace JSX {
+    interface IntrinsicElements extends JSXInternal {
+      "adsgram-task": CustomElement<HTMLDivElement>
+    }
+  }
+}

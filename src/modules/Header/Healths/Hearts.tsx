@@ -1,0 +1,54 @@
+import { cn } from "@/lib/cn"
+import React from "react"
+
+interface HeartRatingProps {
+  totalHearts: number
+  activeHearts: number
+}
+
+const Hearts: React.FC<HeartRatingProps> = ({ totalHearts, activeHearts }) => {
+  const hearts = Array.from({ length: totalHearts }, (_, index) => (
+    <svg
+      key={index}
+      width="16"
+      height="16"
+      viewBox="0 0 14 14"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn(
+        "mr-1",
+        index < activeHearts ? "fill-red-600" : "fill-gray-400",
+      )}
+    >
+      <path
+        d="M12.7494 2.68861C12.0549 1.95236 11.1019 1.54688 10.0658 1.54688C9.29135 1.54688 8.58209 1.78619 7.95769 2.25811C7.64262 2.49632 7.35713 2.78776 7.10543 3.12792C6.85382 2.78786 6.56824 2.49632 6.25307 2.25811C5.62877 1.78619 4.91951 1.54688 4.14504 1.54688C3.10895 1.54688 2.15586 1.95236 1.46134 2.68861C0.775114 3.41625 0.397095 4.41032 0.397095 5.48782C0.397095 6.59684 0.819948 7.61202 1.72779 8.68272C2.53992 9.64047 3.70714 10.6127 5.05882 11.7386C5.52037 12.123 6.04353 12.5588 6.58676 13.0231C6.73027 13.1459 6.91442 13.2135 7.10543 13.2135C7.29633 13.2135 7.48058 13.1459 7.62389 13.0233C8.16712 12.5589 8.69059 12.1229 9.15234 11.7382C10.5038 10.6126 11.671 9.64047 12.4832 8.68262C13.391 7.61202 13.8138 6.59684 13.8138 5.48772C13.8138 4.41032 13.4357 3.41625 12.7494 2.68861Z"
+        fill="url(#paint0_linear_1573_1625)"
+        stroke={cn(index < activeHearts && "black")} // Черная обводка
+        strokeWidth="1" // Ширина обводки
+        className={cn(
+          "mr-1",
+          index < activeHearts ? "fill-[#FF7D60]" : "fill-gray-400",
+        )}
+      />
+      <defs>
+        <linearGradient
+          id="paint0_linear_1573_1625"
+          x1="7.10543"
+          y1="1.54687"
+          x2="7.10543"
+          y2="13.2135"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#F0311B" />
+          <stop offset="1" stopColor="#D83838" />
+        </linearGradient>
+      </defs>
+    </svg>
+  ))
+
+  return (
+    <div className="relative mt-2 flex justify-end pr-2.5">{hearts}</div>
+  )
+}
+
+export default Hearts

@@ -1,0 +1,26 @@
+<svg width="1500" height="1500" viewBox="0 0 1500 1500" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_3768_22)">
+<path d="M1499.5 0.5H0.5V1499.5H1499.5V0.5Z" fill="url(#paint0_radial_3768_22)"/>
+<path d="M1499 1V1499H1V1H1499ZM1500 0H0V1500H1500V0Z" fill="black"/>
+<path d="M585 320H827.4L722.3 969.1H1072V1180H428L585 320Z" fill="url(#paint1_radial_3768_22)" stroke="black" stroke-width="17" stroke-miterlimit="10"/>
+</g>
+<defs>
+<radialGradient id="paint0_radial_3768_22" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(750 750) scale(968.7)">
+<stop stop-color="#FFED00"/>
+<stop offset="0.4" stop-color="#FFE900"/>
+<stop offset="0.7" stop-color="#FFDF00"/>
+<stop offset="0.9" stop-color="#FFCE00"/>
+<stop offset="1" stop-color="#FFC800"/>
+</radialGradient>
+<radialGradient id="paint1_radial_3768_22" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(750 750) scale(490.9 490.9)">
+<stop stop-color="#FFED00"/>
+<stop offset="0.4" stop-color="#FFE900"/>
+<stop offset="0.7" stop-color="#FFDF00"/>
+<stop offset="0.9" stop-color="#FFCE00"/>
+<stop offset="1" stop-color="#FFC800"/>
+</radialGradient>
+<clipPath id="clip0_3768_22">
+<rect width="1500" height="1500" rx="250" fill="white"/>
+</clipPath>
+</defs>
+</svg>

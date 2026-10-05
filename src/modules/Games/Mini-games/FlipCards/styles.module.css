@@ -1,0 +1,14 @@
+.background {
+  background-image: url("/images/games/flip-cards-background.png");
+  background-size: cover;
+}
+
+.mask_bottom {
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    red 15%,
+    red 85%,
+    transparent
+  );
+}

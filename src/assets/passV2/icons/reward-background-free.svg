@@ -1,0 +1,32 @@
+<svg width="116" height="80" viewBox="0 0 116 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_5743_1201)">
+<rect width="116" height="80" rx="12" fill="url(#paint0_linear_5743_1201)"/>
+<rect x="2" y="2" width="112" height="76" rx="11" fill="url(#paint1_radial_5743_1201)"/>
+<rect x="2.5" y="2.5" width="111" height="75" rx="10.5" stroke="#13172A" stroke-opacity="0.3"/>
+<mask id="mask0_5743_1201" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="2" y="2" width="112" height="76">
+<rect x="2" y="2" width="112" height="76" rx="11" fill="url(#paint2_radial_5743_1201)"/>
+<rect x="2.5" y="2.5" width="111" height="75" rx="10.5" stroke="#13172A" stroke-opacity="0.3"/>
+</mask>
+<g mask="url(#mask0_5743_1201)">
+<rect opacity="0.03" x="58" y="-28.5858" width="96.9946" height="96.9946" rx="11" transform="rotate(45 58 -28.5858)" stroke="white" stroke-width="2"/>
+<rect opacity="0.06" x="58" y="-7.58579" width="67.2959" height="67.2959" rx="11" transform="rotate(45 58 -7.58579)" stroke="white" stroke-width="2"/>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear_5743_1201" x1="58" y1="0" x2="58" y2="80" gradientUnits="userSpaceOnUse">
+<stop stop-color="#AB98F6"/>
+<stop offset="1" stop-color="#9A79E6"/>
+</linearGradient>
+<radialGradient id="paint1_radial_5743_1201" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(58 40) rotate(90) scale(43.6486 64.3243)">
+<stop stop-color="#9F7DEF"/>
+<stop offset="1" stop-color="#6843D7"/>
+</radialGradient>
+<radialGradient id="paint2_radial_5743_1201" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(58 40) rotate(90) scale(43.6486 64.3243)">
+<stop stop-color="#9F7DEF"/>
+<stop offset="1" stop-color="#7954E5"/>
+</radialGradient>
+<clipPath id="clip0_5743_1201">
+<rect width="116" height="80" rx="12" fill="white"/>
+</clipPath>
+</defs>
+</svg>

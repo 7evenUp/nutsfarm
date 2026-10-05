@@ -1,0 +1,263 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "DaysOne";
+  src: url("/fonts/DaysOne.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Koulen";
+  src: url("/fonts/Koulen.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TT Hoves";
+  src: url("/fonts/Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TT Hoves";
+  src: url("/fonts/DemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TT Hoves";
+  src: url("/fonts/Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TT Hoves Pro Trial Expanded";
+  src: url("/fonts/TT Hoves Pro Trial Expanded Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TT Hoves Pro Trial Expanded";
+  src: url("/fonts/TT Hoves Pro Trial Expanded DemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TT Hoves Pro Trial Expanded";
+  src: url("/fonts/TT Hoves Pro Trial Expanded Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TT Hoves Pro Trial Expanded";
+  src: url("/fonts/TT Hoves Pro Trial Expanded Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer components {
+  .overlay-bg {
+    background-color: rgba(84, 104, 128, 0.7); /* eaeaea */
+    position: relative;
+  }
+
+  .overlay-bg::before {
+    content: "";
+    position: absolute;
+    border-radius: 16px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(23, 35, 51, 0.5); /* #172333 with 70% opacity */
+    pointer-events: none;
+  }
+
+  .overlay-bg > * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.no-scroll {
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+}
+
+.no-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+:root {
+  --safe-area-inset-bottom: calc(100lvh - var(--tg-viewport-height, 100lvh));
+}
+
+html {
+  background-color: #050d12;
+  height: 100dvh;
+  overflow: hidden;
+  color-scheme: dark light;
+}
+
+body {
+  height: 100%;
+  overflow-x: hidden;
+  background-color: #050d12;
+}
+
+.horizontal-mask {
+  -webkit-mask: linear-gradient(
+    90deg,
+    transparent,
+    #fff 5%,
+    #fff 95%,
+    transparent
+  );
+  mask: linear-gradient(90deg, transparent, #fff 5%, #fff 95%, transparent);
+}
+
+#root {
+  height: 100%;
+  overflow-x: hidden;
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+}
+
+:where([data-sonner-toast]) :where([data-icon]) {
+  width: 44px !important;
+  height: 44px !important;
+}
+
+:where(html[dir="ltr"]),
+:where([data-sonner-toaster][dir="ltr"]) {
+  --toast-icon-margin-start: 0px !important;
+  --toast-icon-margin-end: 10px !important;
+}
+
+:where([data-sonner-toast]) :where([data-title]) {
+  font-weight: 600 !important;
+  line-height: 1;
+  color: inherit;
+}
+
+:where([data-sonner-toast]) :where([data-description]) {
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  line-height: 18px !important;
+  color: inherit;
+}
+
+@media (max-width: 600px) {
+  [data-sonner-toaster][data-y-position="top"] {
+    top: 64px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  [data-sonner-toaster] {
+    --mobile-offset: 64px !important;
+  }
+}
+@media (max-width: 400px) {
+  [data-sonner-toaster] {
+    --mobile-offset: 48px !important;
+  }
+}
+@media (max-width: 376px) {
+  [data-sonner-toaster] {
+    --mobile-offset: 16px !important;
+  }
+}
+
+.full-range-gradient {
+  background-image: linear-gradient(
+    to right,
+    #66faff 0%,
+    #55a3ff 22%,
+    #c041cb 38%,
+    #e870c6 55%,
+    #fba42e 76%,
+    #feed94 100%
+  );
+}
+
+.bitget-gradient-success {
+  background-image: linear-gradient(to bottom, #0f1824 20%, #6ed950);
+}
+.bitget-gradient-failure {
+  background-image: linear-gradient(to bottom, #0f1824 20%, #3d5885);
+}
+
+.animate-shake {
+  animation: shake 8s cubic-bezier(0.36, 0.07, 0.19, 0.97) 20s both infinite;
+  transform: rotate(0deg);
+}
+
+.animate-shake-2 {
+  animation: shake 4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both infinite;
+  transform: rotate(0deg);
+}
+
+@keyframes shake {
+  2%,
+  6%,
+  8%,
+  10%,
+  14%,
+  18% {
+    transform: rotate(-3deg);
+  }
+  4%,
+  8%,
+  12%,
+  16%,
+  20% {
+    transform: rotate(4deg);
+  }
+  22%,
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.EASTER_EGG {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  color: black;
+  font-family: "TT Hoves Pro Trial Expanded";
+  font-size: 13px;
+  padding: 4px 8px;
+  border-radius: 6px;
+
+  &:hover {
+    background-color: black;
+    color: white;
+  }
+
+  &:active {
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+}

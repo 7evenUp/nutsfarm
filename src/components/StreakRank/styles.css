@@ -1,0 +1,9 @@
+.animated {
+  animation: shine 2s linear infinite;
+}
+
+@keyframes shine {
+  100% {
+    left: 200%;
+  }
+}

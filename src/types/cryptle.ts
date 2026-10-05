@@ -1,0 +1,1 @@
+export type SkinType = "DEFAULT" | "GREEN" | "PURPLE" 

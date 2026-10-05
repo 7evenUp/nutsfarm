@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+
+  frontend:
+    container_name: frontend
+    hostname: frontend
+    restart: always
+    #image: nginx:stable-alpine
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    #command: tail -f /dev/null
+    #ports:
+    #  - 3000:3000
+    networks:
+      - frontend
+
+networks:
+  frontend:
+    name: frontend
+

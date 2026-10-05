@@ -1,0 +1,20 @@
+.task {
+  --adsgram-task-font-size: 14px; /* min 14px */
+  --adsgram-task-icon-size: 48px; /* min 30px */
+  --adsgram-task-icon-title-gap: 15px; /* min 5px max 40px */
+  --adsgram-task-button-width: 60px; /* min 40px */
+  --adsgram-task-icon-border-radius: 8px;
+
+  display: block;
+  padding: 36px 16px 10px 6px;
+  border-radius: 16px;
+  background-color: #0f1824;
+  font-family: Nunito;
+  color: white;
+}
+
+@media (min-width: 376px) {
+  .task {
+    --adsgram-task-icon-size: 64px; /* min 30px */
+  }
+}

@@ -1,0 +1,11 @@
+.gradient_1 {
+  background-image: linear-gradient(to right, #55a3ff, #66faff 388px);
+}
+
+.gradient_2 {
+  background-image: linear-gradient(to right, #55a3ff -194px, #66faff 194px);
+}
+
+.gradient_3 {
+  background-image: linear-gradient(to right, #55a3ff -388px, #66faff);
+}

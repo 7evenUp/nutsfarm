@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en" class="no-scroll select-none">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta http-equiv="ScreenOrientation" content="autoRotate:disabled" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+
+    <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
+    <script
+      async
+      src="https://tganalytics.xyz/index.js"
+      onload="initAnalytics()"
+      type="text/javascript"
+    ></script>
+    <script>
+      function initAnalytics() {
+        window.telegramAnalytics.init({
+          token:
+            "eyJhcHBfbmFtZSI6Im51dHNmYXJtIiwiYXBwX3VybCI6Imh0dHBzOi8vdC5tZS9udXRzZmFybV9ib3QiLCJhcHBfZG9tYWluIjoiaHR0cHM6Ly9udXRzZmFybS5jcnlwdG9uLnh5eiJ9!ZhdNXzBsQYyYA+ZhZO9msVIzwIaaYkGhstE8Ju0htjQ=",
+          appName: "nutsfarm",
+        })
+      }
+    </script>
+    <script>
+      Telegram.WebApp.expand()
+      Telegram.WebApp.setHeaderColor("#050D12")
+      Telegram.WebApp.setBackgroundColor("#050D12")
+      Telegram.WebApp.disableVerticalSwipes()
+    </script>
+    <script type="text/javascript">
+      ;(function (m, e, t, r, i, k, a) {
+        m[i] =
+          m[i] ||
+          function () {
+            ;(m[i].a = m[i].a || []).push(arguments)
+          }
+        m[i].l = 1 * new Date()
+        for (var j = 0; j < document.scripts.length; j++) {
+          if (document.scripts[j].src === r) {
+            return
+          }
+        }
+        ;((k = e.createElement(t)),
+          (a = e.getElementsByTagName(t)[0]),
+          (k.async = 1),
+          (k.src = r),
+          a.parentNode.insertBefore(k, a))
+      })(
+        window,
+        document,
+        "script",
+        "https://mc.yandex.ru/metrika/tag.js",
+        "ym",
+      )
+      ym(99648505, "init", {
+        clickmap: true,
+        trackLinks: true,
+        accurateTrackBounce: true,
+        webvisor: true,
+        ecommerce: "dataLayer",
+      })
+    </script>
+
+    <title>Nuts Farm</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <noscript
+      ><div>
+        <img
+          src="https://mc.yandex.ru/watch/99648505"
+          style="position: absolute; left: -9999px"
+          alt=""
+        /></div
+    ></noscript>
+    <div id="root"></div>
+    <div id="dialogs"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
