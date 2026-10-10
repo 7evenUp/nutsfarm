@@ -24,8 +24,8 @@ import {
 
 const S3CloudUrl =
   import.meta.env.VITE_IS_DEV_LOCAL === undefined
-    ? "https://s3-nutsfarm.crypton.xyz"
-    : "https://s3-nutsfarm-dev.crypton.xyz"
+    ? ""
+    : ""
 
 const LetterEnterSound = new Sound(
   `${S3CloudUrl}/sounds/games/cryptle/cryptle-enter-letter.mp3`,
@@ -68,14 +68,14 @@ const dictionaryCache: Record<"RU" | "EN", Set<string> | null> = {
 async function loadDictionary(lang: "RU" | "EN"): Promise<Set<string>> {
   if (dictionaryCache[lang]) return dictionaryCache[lang]!
 
-  const dictFile = `https://s3-nutsfarm-dev.crypton.xyz/cryptle-dictionaries/${lang.toLowerCase()}.txt`
+  const dictFile = `/dictionaries/${lang.toLowerCase()}.txt`
 
   try {
     const response = await fetch(dictFile)
     if (!response.ok) throw new Error("Dictionary load failed")
 
     const text: string = await response.text()
-    const words: string[] = text.split("\r\n")
+    const words: string[] = text.split(/\r?\n/).map(word => word.trim().toLowerCase()).filter(Boolean)
 
     dictionaryCache[lang] = new Set(words)
     return dictionaryCache[lang]!

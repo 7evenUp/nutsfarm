@@ -1,3 +1,4 @@
+import fallbackImage from "@/assets/images/home-image.png"
 import { useEffect, useRef, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { useTranslation } from "react-i18next"
@@ -28,11 +29,11 @@ import { getMinutes, getSeconds } from "@/utils/date"
 import { encryptToken } from "@/utils/encrypt"
 import { Sound } from "@/utils/Sound"
 
-import { BackButton, initBackButton } from "@telegram-apps/sdk"
+import { BackButton, initBackButton } from "@/demo/telegram-sdk"
 
 let backButton: BackButton
 
-if (import.meta.env.VITE_IS_DEV_LOCAL === undefined) {
+if (true) {
   try {
     const [initializedBackButton] = initBackButton()
     backButton = initializedBackButton
@@ -43,8 +44,8 @@ if (import.meta.env.VITE_IS_DEV_LOCAL === undefined) {
 
 const S3CloudUrl =
   import.meta.env.VITE_IS_DEV_LOCAL === undefined
-    ? "https://s3-nutsfarm.crypton.xyz"
-    : "https://s3-nutsfarm-dev.crypton.xyz"
+    ? ""
+    : ""
 
 const winSound = new Sound(
   `${S3CloudUrl}/sounds/games/puzzles/puzzles-victory.mp3`,
@@ -338,7 +339,7 @@ const PuzzlesGameplay = () => {
           imageSrc={
             gameData.imageUrl ||
             gameData.gameLevelImage ||
-            "https://i.getgems.io/1WhHqEJ6ZQhG_WK8kXUG4pOHFCgxdl6BeqHxJIKJSok/rs:fill:1000:0:1/g:ce/czM6Ly9nZXRnZW1zLW5mdC9uZnQvYi9jLzY1ODQyNDVkZTg0ZGFkMzIxZTUyZTg2OS91cGxvYWQtY29udGVudC8yMDI0LTEwLTIwLTEzLTQ4LjYxcC9lYXJfY29sbGVjdG9yLnBuZw"
+            fallbackImage
           }
           movesRef={movesRef}
         />

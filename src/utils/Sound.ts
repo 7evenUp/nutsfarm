@@ -11,43 +11,20 @@ export class Sound {
     this.url = url
   }
 
-  load() {
-    if (!this.url)
-      return Promise.reject(new Error("Missing or invalid URL: " + this.url))
-
-    if (this.buffer) return Promise.resolve(this.buffer)
-
-    return new Promise((resolve, reject) => {
-      const request = new XMLHttpRequest()
-
-      request.open("GET", this.url, true)
-      request.responseType = "arraybuffer"
-
-      // Decode asynchronously:
-      request.onload = () => {
-        context.decodeAudioData(request.response, (buffer) => {
-          if (!buffer) {
-            console.log(`Sound decoding error: ${this.url}`)
-
-            reject(new Error(`Sound decoding error: ${this.url}`))
-
-            return
-          }
-
-          this.buffer = buffer
-
-          resolve(buffer)
-        })
-      }
-
-      request.onerror = (err) => {
-        console.log("Sound XMLHttpRequest error:", err)
-
-        reject(err)
-      }
-
-      request.send()
-    })
+  async load() {
+    if (this.buffer) return this.buffer
+    // Original audio files lived on a retired server. Small local tones keep
+    // feedback playable without network requests or failed loading promises.
+    const duration = /victory|claimed|success|win|opening/.test(this.url) ? 0.35 : 0.09
+    const buffer = context.createBuffer(1, Math.floor(context.sampleRate * duration), context.sampleRate)
+    const samples = buffer.getChannelData(0)
+    const frequency = /incorrect|defeat|lose/.test(this.url) ? 180 : 660
+    for (let i = 0; i < samples.length; i++) {
+      const t = i / context.sampleRate
+      samples[i] = Math.sin(2 * Math.PI * frequency * t) * 0.07 * Math.max(0, 1 - t / duration)
+    }
+    this.buffer = buffer
+    return buffer
   }
 
   play(loop = false, volume = 1, time = 0) {
@@ -57,6 +34,7 @@ export class Sound {
     if (!isSoundEnabled()) return
 
     // Create a new sound source and assign it the loaded sound's buffer:
+    if (context.state === "suspended") void context.resume()
     const source = context.createBufferSource()
 
     source.buffer = this.buffer

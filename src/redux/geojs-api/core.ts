@@ -1,10 +1,8 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
+import { createApi } from "@reduxjs/toolkit/query/react"
 
 export const geojsApi = createApi({
   reducerPath: "geojs-api",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "https://get.geojs.io/v1",
-  }),
+  baseQuery: async () => ({ data: { country: "RU", country_3: "RUS", ip: "127.0.0.1", name: "Demo" } }),
   refetchOnReconnect: true,
   tagTypes: ["User"],
   endpoints: () => ({}),

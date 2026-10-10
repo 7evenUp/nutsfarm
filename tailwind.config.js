@@ -64,7 +64,7 @@ export default {
         "cryptle-game-back-purple-skin":
           "url('/images/games/cryptle-game-back-purple-skin.svg')",
         "cryptle-level-map-back":
-          "url('/images/games/cryptle-level-map-back.svg')",
+          "url('/images/games/cryptle-roadmap.svg')",
         "cryptle-roadmap": "url('/images/games/cryptle-roadmap.svg')",
         "puzzle-game-back": "url('/images/games/puzzle-game-back.png')",
         "puzzle-game-back-large":

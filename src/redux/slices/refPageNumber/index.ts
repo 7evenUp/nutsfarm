@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import type { PayloadAction } from "@reduxjs/toolkit"
 
-interface RefPageNumber {
+export interface RefPageNumber {
   value: number
 }
 

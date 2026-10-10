@@ -8,16 +8,17 @@ import { useAppSelector } from "@/redux/hooks"
 import { makeHapticFeedback } from "@/utils/makeHapticFeedback"
 
 import { cn } from "@/lib/cn"
+import PassSlide from "@/demo/PassSlide"
 
 import {
   BackButton,
   initBackButton,
   RemoveEventListenerFn,
-} from "@telegram-apps/sdk"
+} from "@/demo/telegram-sdk"
 
 let backButton: BackButton
 
-if (import.meta.env.VITE_IS_DEV_LOCAL === undefined) {
+if (true) {
   try {
     const [initializedBackButton] = initBackButton()
     backButton = initializedBackButton
@@ -26,19 +27,8 @@ if (import.meta.env.VITE_IS_DEV_LOCAL === undefined) {
   }
 }
 
-const S3Domain =
-  import.meta.env.VITE_ENVIRONMENT === "PROD"
-    ? "https://s3-nutsfarm.crypton.xyz"
-    : "https://s3-nutsfarm-dev.crypton.xyz"
-
-const SLIDES_RU = [
-  `${S3Domain}/pass_bought_onboarding/pass_bought_01_02_ru_new.png`,
-  `${S3Domain}/pass_bought_onboarding/pass_bought_02_02_ru_new.png`,
-]
-const SLIDES_EN = [
-  `${S3Domain}/pass_bought_onboarding/pass_bought_01_02_en_new.png`,
-  `${S3Domain}/pass_bought_onboarding/pass_bought_02_02_en_new.png`,
-]
+const SLIDES_RU = [0, 1, 2]
+const SLIDES_EN = [0, 1, 2]
 
 const PassBoughtOnboarding = ({
   open,
@@ -56,26 +46,6 @@ const PassBoughtOnboarding = ({
   useEffect(() => {
     if (!open) setActiveSlide(0)
   }, [open])
-
-  // cacheImages
-  useEffect(() => {
-    const cacheContent = async () => {
-      const promises = SLIDES_TO_CACHE.map((src) => {
-        return new Promise((resolve, reject) => {
-          if (!src) return
-
-          const img = new Image()
-          img.src = src
-          img.onload = resolve
-          img.onerror = reject
-        })
-      })
-
-      await Promise.all(promises)
-    }
-
-    cacheContent()
-  }, [])
 
   // TMA Back Button
   useEffect(() => {
@@ -142,11 +112,8 @@ const PassBoughtOnboarding = ({
           ))}
         </div>
 
-        <img
-          alt={`Info slide №${activeSlide + 1}`}
-          src={SLIDES_TO_CACHE[activeSlide]}
-          className="absolute inset-0 h-full w-full object-cover object-top"
-        />
+        <PassSlide index={activeSlide} lang={lang} purchased />
+
 
         {activeSlide > 0 && (
           <button

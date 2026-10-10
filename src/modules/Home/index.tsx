@@ -10,7 +10,7 @@ import LottieAnimationV4 from "@/assets/animations/nutcracker_4.json"
 import LottieAnimationV5 from "@/assets/animations/nutcracker_5.json"
 
 import Drop from "./components/Drop"
-// import FarmButtons from "./components/FarmButtons"
+import FarmButtons from "./components/FarmButtons"
 import Stories from "./components/Stories"
 import Points from "./components/Points"
 import HomeButtonsGroup from "./components/HomeButtonsGroup"
@@ -176,7 +176,7 @@ const Home = () => {
         <HomeButtonsGroup />
 
         <Drop />
-        {/* <FarmButtons setIsClaimed={setIsClaimed} setIsStarted={setIsStarted} /> */}
+        <FarmButtons setIsClaimed={setIsClaimed} setIsStarted={setIsStarted} />
       </main>
 
       <StoriesDialog />

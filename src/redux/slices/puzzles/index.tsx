@@ -2,12 +2,12 @@ import { createSlice } from "@reduxjs/toolkit"
 import type { PayloadAction } from "@reduxjs/toolkit"
 import { UserGameLevelDifficultyInfo } from "@/types/games"
 
-interface ExtendedGameLevelInfo extends UserGameLevelDifficultyInfo {
+export interface ExtendedGameLevelInfo extends UserGameLevelDifficultyInfo {
   imageUrl?: string
   timeLimit?: number
 }
 
-interface GameState {
+export interface GameState {
   gameData: ExtendedGameLevelInfo | null
   notEnoughEnergyModalOpen: boolean
 }

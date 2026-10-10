@@ -9,7 +9,6 @@ import Task from "./components/Task"
 import UserTask from "./components/UserTask"
 import PartnerGroup from "./components/PartnerGroup"
 import { CRYPTON_ICONS_MAP } from "./components/TaskIcon"
-import ConnectTon from "./components/ConnectTon"
 
 import StoriesDialog from "@/modals/Stories"
 
@@ -19,7 +18,6 @@ import {
   useGetCurrentTasksQuery,
 } from "@/redux/api/task"
 import { useGetActiveModulesQuery } from "@/redux/api/learn"
-import { useGetCurrentUserQuery } from "@/redux/api/user"
 
 import { UserTask as UserTaskType, ActiveTask, TaskType } from "@/types/task"
 
@@ -153,8 +151,6 @@ const Tasks = () => {
   const countryCode = useAppSelector((state) => state.countryCode.value)
   const lang = useAppSelector((state) => state.language.value)
 
-  const { data: currentUser } = useGetCurrentUserQuery()
-
   const { data: activeTasks, isLoading: isActiveTasksLoading } =
     useGetActiveTasksQuery({
       lang,
@@ -275,8 +271,6 @@ const Tasks = () => {
       )}
     >
       <>
-        {currentUser && !currentUser.tonWallet && <ConnectTon />}
-
         {/* Отрисовка "партнёрских" групп */}
         {[...new Set(activeTasks.map((task) => task.task.partnerName))].map(
           (partner) =>
@@ -289,7 +283,17 @@ const Tasks = () => {
             ),
         )}
 
-        <Tabs.Root defaultValue="DAILY" className="mt-4 w-full">
+        <Tabs.Root
+          defaultValue={
+            orderedTaskGroups.find(
+              (group) =>
+                (groupedActiveTasks.get(group as GroupNames)?.length || 0) +
+                  (groupedCurrentTasks.get(group as GroupNames)?.length || 0) >
+                0,
+            ) || "SOCIALS"
+          }
+          className="mt-4 w-full"
+        >
           <div
             className="horizontal-mask -ml-4 mb-1 w-screen cursor-grab overflow-hidden px-4 active:cursor-grabbing"
             ref={emblaRef}

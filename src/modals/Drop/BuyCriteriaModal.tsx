@@ -36,12 +36,12 @@ import { makeHapticFeedback } from "@/utils/makeHapticFeedback"
 
 import { cn } from "@/lib/cn"
 
-import { initInvoice } from "@telegram-apps/sdk"
+import { initInvoice } from "@/demo/telegram-sdk"
 
 // @ts-expect-error Not-in-telegram-environment
 let invoice
 
-if (import.meta.env.VITE_IS_DEV_LOCAL === undefined) {
+if (true) {
   try {
     invoice = initInvoice()
   } catch {

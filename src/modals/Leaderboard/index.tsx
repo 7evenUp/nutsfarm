@@ -6,11 +6,11 @@ import {
   BackButton,
   initBackButton,
   RemoveEventListenerFn,
-} from "@telegram-apps/sdk"
+} from "@/demo/telegram-sdk"
 
 let backButton: BackButton
 
-if (import.meta.env.VITE_IS_DEV_LOCAL === undefined) {
+if (true) {
   try {
     const [initializedBackButton] = initBackButton()
     backButton = initializedBackButton

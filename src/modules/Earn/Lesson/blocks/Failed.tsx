@@ -19,7 +19,7 @@ import { makeHapticFeedback } from "@/utils/makeHapticFeedback"
 import { cn } from "@/lib/cn"
 
 const finalScreenSound = new Sound(
-  "https://s3-nutsfarm.crypton.xyz/sounds/no-health.mp3",
+  "/sounds/no-health.mp3",
 )
 
 const Failed = ({

@@ -61,7 +61,7 @@ const LuckyWheel = ({ children }: { children: React.ReactNode }) => {
     sendMetrika("wheel_roll")
 
     try {
-      const [reward] = await spin().unwrap()
+      const [reward] = await spin({}).unwrap()
       if (reward.type === "BOOSTER") refetchBoosters()
       setWheelReward(reward)
       setAnimationReward(reward)
@@ -194,6 +194,7 @@ const LuckyWheel = ({ children }: { children: React.ReactNode }) => {
 
         {animationReward !== null && (
           <WheelAnimation
+            isPremium={false}
             open={wheelOpen}
             setOpen={setWheelOpen}
             openReward={() => {

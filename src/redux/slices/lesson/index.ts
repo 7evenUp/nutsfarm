@@ -2,7 +2,7 @@ import { LessonProgress, LessonsProgressState } from "@/types/learn"
 import { createSlice } from "@reduxjs/toolkit"
 import type { PayloadAction } from "@reduxjs/toolkit"
 
-interface LessonState {
+export interface LessonState {
   openedLessonId: string | null
   lessonsProgress: LessonsProgressState
 }

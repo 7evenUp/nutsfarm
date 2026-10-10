@@ -22,11 +22,11 @@ import { cn } from "@/lib/cn"
 
 import styles from "./styles.module.css"
 
-import { BackButton, initBackButton } from "@telegram-apps/sdk"
+import { BackButton, initBackButton } from "@/demo/telegram-sdk"
 
 let backButton: BackButton
 
-if (import.meta.env.VITE_IS_DEV_LOCAL === undefined) {
+if (true) {
   try {
     const [initializedBackButton] = initBackButton()
     backButton = initializedBackButton
@@ -37,8 +37,8 @@ if (import.meta.env.VITE_IS_DEV_LOCAL === undefined) {
 
 const S3CloudUrl =
   import.meta.env.VITE_IS_DEV_LOCAL === undefined
-    ? "https://s3-nutsfarm.crypton.xyz"
-    : "https://s3-nutsfarm-dev.crypton.xyz"
+    ? ""
+    : ""
 
 const clickSound = new Sound(
   `${S3CloudUrl}/sounds/games/flip-cards/flip-cards-select-difficulty.mp3`,

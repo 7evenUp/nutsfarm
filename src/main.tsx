@@ -1,13 +1,14 @@
+import "./demo/environment"
 import React from "react"
 import ReactDOM from "react-dom/client"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 
 import Providers from "./components/Providers.tsx"
-import Preloader from "./components/Preloader.tsx"
 import { ErrorPage } from "./ErrorPage.tsx"
-import PreAuth from "./components/PreAuth.tsx"
 import Layout from "./components/Layout.tsx"
-import WebApp from "./components/WebApp.tsx"
+import DemoControls from "./demo/DemoControls"
+import { api } from "./redux/api/core"
+import { store } from "./redux/store"
 
 // const Home = lazy(() => import("./modules/Home"))
 // const Tasks = lazy(() => import("./modules/Tasks"))
@@ -26,10 +27,24 @@ import FlipCardsMenu from "./modules/Games/Mini-games/FlipCards"
 import FlipCardsGameplay from "./modules/Games/Mini-games/FlipCards/core"
 import WordleMenu from "./modules/Games/Mini-games/Wordle/index.tsx"
 import WordleGameplay from "./modules/Games/Mini-games/Wordle/core/index.tsx"
-import PublicProfileModal from "./modals/PublicProfileModal/index.tsx"
 
 import "./lib/i18n.ts"
 import "./index.css"
+
+// Refresh all local data after a demo action, including untagged legacy queries.
+api.enhanceEndpoints({
+  endpoints: Object.fromEntries(
+    Object.keys(api.endpoints).map((name) => [
+      name,
+      (definition: { type?: string; providesTags?: string[] }) => {
+        if (definition.type !== "mutation") definition.providesTags = ["DEMO"]
+      },
+    ]),
+  ),
+})
+window.addEventListener("nutsfarm:demo-updated", () => {
+  setTimeout(() => store.dispatch(api.util.invalidateTags(["DEMO"])), 0)
+})
 
 const router = createBrowserRouter([
   {
@@ -92,24 +107,9 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    {!Telegram.WebApp.initData ? (
-      <Providers>
-        <WebApp>
-          <RouterProvider router={router} />
-
-          <PublicProfileModal />
-        </WebApp>
-      </Providers>
-    ) : (
-      <Providers>
-        <PreAuth>
-          <Preloader>
-            <RouterProvider router={router} />
-
-            <PublicProfileModal />
-          </Preloader>
-        </PreAuth>
-      </Providers>
-    )}
+    <Providers>
+      <RouterProvider router={router} />
+      <DemoControls />
+    </Providers>
   </React.StrictMode>,
 )

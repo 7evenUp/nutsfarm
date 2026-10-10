@@ -24,7 +24,7 @@ import { isHexColor } from "@/utils/color"
 import { hexToHsl } from "@/utils/hexToHsl"
 
 import { cn } from "@/lib/cn"
-import { initCloudStorage } from "@telegram-apps/sdk"
+import { initCloudStorage } from "@/demo/telegram-sdk"
 
 import ModulePreviewRU from "@/assets/images/module_premium_preview_ru.png"
 import ModulePreviewEN from "@/assets/images/module_premium_preview_en.png"

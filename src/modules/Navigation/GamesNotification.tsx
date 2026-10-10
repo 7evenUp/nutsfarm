@@ -3,12 +3,12 @@ import { useLocation } from "react-router-dom"
 
 import { cn } from "@/lib/cn"
 
-import { initCloudStorage } from "@telegram-apps/sdk"
+import { initCloudStorage } from "@/demo/telegram-sdk"
 
 // @ts-expect-error Not-in-telegram-environment
 let cloudStorage
 
-if (import.meta.env.VITE_IS_DEV_LOCAL === undefined) {
+if (true) {
   try {
     cloudStorage = initCloudStorage()
   } catch {
@@ -38,7 +38,7 @@ const GamesNotification = () => {
   }, [])
 
   useEffect(() => {
-    if (import.meta.env.VITE_IS_DEV_LOCAL === undefined) {
+    if (true) {
       const hideNotification = async () => {
         // @ts-expect-error Not-in-telegram-environment
         const storageValue: string = await cloudStorage.get("games-visited")

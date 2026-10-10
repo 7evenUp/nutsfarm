@@ -28,8 +28,8 @@ const LOCAL_STORAGE_KEY = "music-setting"
 
 const S3CloudUrl =
   import.meta.env.VITE_IS_DEV_LOCAL === undefined
-    ? "https://s3-nutsfarm.crypton.xyz"
-    : "https://s3-nutsfarm-dev.crypton.xyz"
+    ? ""
+    : ""
 
 const PuzzleMenuMusic = new Sound(
   `${S3CloudUrl}/sounds/games/puzzles/puzzles-menu.mp3`,

@@ -53,6 +53,7 @@ const CurrentPassLevel = () => {
             </p>
 
             <button
+              aria-label="Купить уровни"
               className="absolute right-0 top-1/2 z-[1000] -translate-y-1/2 translate-x-1/2 transition-transform active:scale-95"
               onClick={() => {
                 makeHapticFeedback({ impactOccured: "soft" })

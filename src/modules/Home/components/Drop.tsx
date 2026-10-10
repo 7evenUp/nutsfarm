@@ -18,10 +18,10 @@ const Drop = () => {
   return (
     <div
       className={cn(
-        "fixed z-[1] w-full max-w-[500px] px-4",
+        "fixed left-1/2 z-[1] w-[calc(100%-176px)] max-w-[324px] -translate-x-1/2",
         Telegram.WebApp.platform === "weba"
-          ? "bottom-[88px]"
-          : "bottom-[calc(max(var(--tg-safe-area-inset-bottom,16px),16px)+72px)]",
+          ? "bottom-[156px]"
+          : "bottom-[calc(max(var(--tg-safe-area-inset-bottom,16px),16px)+140px)]",
       )}
     >
       <DropModal>

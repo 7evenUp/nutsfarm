@@ -2,9 +2,9 @@ import { Reward } from "@/types/nutspass"
 import { createSlice } from "@reduxjs/toolkit"
 import type { PayloadAction } from "@reduxjs/toolkit"
 
-type RewardStatus = "NOT_ACHIEVED" | "READY_FOR_CLAIM" | "CLAIMED"
+export type RewardStatus = "NOT_ACHIEVED" | "READY_FOR_CLAIM" | "CLAIMED"
 
-interface PassV2State {
+export interface PassV2State {
   passLevel: number
   currentLevelXp: number
   boxRewards: Reward[]

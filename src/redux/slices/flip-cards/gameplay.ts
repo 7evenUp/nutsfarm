@@ -3,7 +3,7 @@ import type { PayloadAction } from "@reduxjs/toolkit"
 
 import { UserGameLevelDifficultyInfo } from "@/types/games"
 
-interface FlipCardsGameplayState {
+export interface FlipCardsGameplayState {
   selectedDifficulty: string | null
   selectedGameId: string | null
   startedDifficulty: UserGameLevelDifficultyInfo | null

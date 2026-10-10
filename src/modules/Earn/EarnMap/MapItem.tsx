@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next"
 import * as Popover from "@radix-ui/react-popover"
 import { useParams } from "react-router-dom"
 import { motion } from "framer-motion"
-import { initInvoice } from "@telegram-apps/sdk"
+import { initInvoice } from "@/demo/telegram-sdk"
 import { toast } from "sonner"
 
 import Loader from "@/assets/icons/loader.svg?react"
@@ -60,7 +60,7 @@ const HARDCODED_LESSON_ID = "260000"
 // @ts-expect-error Not-in-telegram-environment
 let invoice
 
-if (import.meta.env.VITE_IS_DEV_LOCAL === undefined) {
+if (true) {
   try {
     invoice = initInvoice()
   } catch {

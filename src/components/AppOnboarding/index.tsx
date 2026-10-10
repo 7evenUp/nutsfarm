@@ -10,8 +10,8 @@ import { cn } from "@/lib/cn"
 
 const S3Domain =
   import.meta.env.VITE_ENVIRONMENT === "PROD"
-    ? "https://s3-nutsfarm.crypton.xyz"
-    : "https://s3-nutsfarm-dev.crypton.xyz"
+    ? ""
+    : ""
 
 const SLIDES_RU = [
   `${S3Domain}/onboarding/onboarding_new_01_04_ru.png`,

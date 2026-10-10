@@ -27,12 +27,12 @@ import {
 
 import { cn } from "@/lib/cn"
 
-import { initCloudStorage } from "@telegram-apps/sdk"
+import { initCloudStorage } from "@/demo/telegram-sdk"
 
 // @ts-expect-error Not-in-telegram-environment
 let cloudStorage
 
-if (import.meta.env.VITE_IS_DEV_LOCAL === undefined) {
+if (true) {
   try {
     cloudStorage = initCloudStorage()
   } catch {

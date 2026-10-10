@@ -15,7 +15,6 @@ import {
 
 import { useGetCurrentUserQuery } from "@/redux/api/user"
 
-const TG_BOT_NAME = import.meta.env.VITE_BOT_NAME
 
 const InviteFriendDialog = ({ children }: { children: React.ReactNode }) => {
   const { t } = useTranslation()
@@ -26,22 +25,13 @@ const InviteFriendDialog = ({ children }: { children: React.ReactNode }) => {
 
   if (!currentUser) return
 
-  const onSendClick = () => {
-    Telegram.WebApp.openTelegramLink(
-      `https://t.me/share/url?url=https://t.me/${TG_BOT_NAME}?startapp=ref_` +
-        currentUser.referralCode,
-    )
+  const link = window.location.origin + "/?ref=" + currentUser.referralCode
+  const onCopyClick = async () => {
+    try { await navigator.clipboard.writeText(link); setIsCopied(true); setTimeout(() => setIsCopied(false), 3000) } catch { window.prompt(t("Скопировать ссылку"), link) }
   }
-
-  const onCopyClick = () => {
-    navigator.clipboard.writeText(
-      `https://t.me/${TG_BOT_NAME}?startapp=ref_` + currentUser.referralCode,
-    )
-
-    setIsCopied(true)
-    setTimeout(() => {
-      setIsCopied(false)
-    }, 3000)
+  const onSendClick = async () => {
+    if (navigator.share) { try { await navigator.share({ title: "Nuts Farm — Demo", url: link }) } catch { /* User dismissed share. */ } }
+    else await onCopyClick()
   }
 
   return (

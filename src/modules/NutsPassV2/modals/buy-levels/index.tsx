@@ -13,7 +13,6 @@ import Minus from "@/assets/passV2/icons/minus.svg?react"
 import Plus from "@/assets/passV2/icons/plus.svg?react"
 import TonIcon from "@/assets/icons/ton.svg?react"
 import ForwardIcon from "@/assets/icons/forward.svg?react"
-import BadgePercent from "@/assets/icons/badge-percent.svg?react"
 
 import LoadingState from "./LoadingState"
 
@@ -41,14 +40,14 @@ import {
   BackButton,
   initBackButton,
   RemoveEventListenerFn,
-} from "@telegram-apps/sdk"
-import { initInvoice } from "@telegram-apps/sdk"
+} from "@/demo/telegram-sdk"
+import { initInvoice } from "@/demo/telegram-sdk"
 
 let backButton: BackButton
 // @ts-expect-error Not-in-telegram-environment
 let invoice
 
-if (import.meta.env.VITE_IS_DEV_LOCAL === undefined) {
+if (true) {
   try {
     const [initializedBackButton] = initBackButton()
     backButton = initializedBackButton
@@ -210,28 +209,10 @@ const BuyLevels = ({
         <Title className="sr-only">Buy Levels for Nuts Pass</Title>
         <Description className="sr-only">Buy Levels for Nuts Pass</Description>
 
-        {Telegram.WebApp.initData ? (
-          <button
-            className="absolute right-4 top-4 z-50 flex h-fit items-center gap-1 rounded-full bg-white px-1.5 py-1 text-xs font-bold text-background"
-            onClick={() => {
-              const correctDomain =
-                import.meta.env.VITE_ENVIRONMENT === "PROD"
-                  ? "https://nutsfarm.crypton.xyz/"
-                  : "https://frontend.nutsfarm-dev.crypton.team/"
-              openLinkWithTelegram(
-                `${correctDomain}pass/?initData=${encodeURIComponent(Telegram.WebApp.initData)}`,
-              )
-            }}
-          >
-            Open web
-            <BadgePercent className="h-5 w-5" />
-          </button>
-        ) : (
-          <Close className="absolute right-4 top-4 z-[100] opacity-70 transition-opacity focus:outline-none active:opacity-100">
-            <CloseIcon className="h-6 w-6" />
-            <span className="sr-only">Close</span>
-          </Close>
-        )}
+        <Close className="absolute right-4 top-4 z-[100] opacity-70 transition-opacity focus:outline-none active:opacity-100">
+          <CloseIcon className="h-6 w-6" />
+          <span className="sr-only">Close</span>
+        </Close>
 
         <div className="fixed inset-0 bg-[radial-gradient(circle_at_50%_0%,_var(--tw-gradient-stops))] from-[#5B40A0]/70 from-[-50%] to-[#141A2D]/70 to-[50%]" />
 
@@ -259,10 +240,7 @@ const BuyLevels = ({
         ) : (
           <div className="relative flex w-full max-w-2xl flex-col items-center gap-2 self-center px-3.5">
             {levelItems.allItems.map((lvl) => {
-              const isLevelDisabledToClick =
-                Telegram.WebApp.initData &&
-                lvl.amount !== null &&
-                lvl.amount > 10
+              const isLevelDisabledToClick = false
 
               return (
                 <button
@@ -273,8 +251,8 @@ const BuyLevels = ({
                     if (isLevelDisabledToClick) {
                       const correctDomain =
                         import.meta.env.VITE_ENVIRONMENT === "PROD"
-                          ? "https://nutsfarm.crypton.xyz/"
-                          : "https://frontend.nutsfarm-dev.crypton.team/"
+                          ? `${window.location.origin}/`
+                          : `${window.location.origin}/`
                       openLinkWithTelegram(
                         `${correctDomain}pass/?initData=${encodeURIComponent(Telegram.WebApp.initData)}`,
                       )

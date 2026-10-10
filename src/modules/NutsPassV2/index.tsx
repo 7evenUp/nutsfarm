@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
+import { Fragment, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 import { useRiveFile } from "@rive-app/react-webgl2"
 
 import DisabledLevelBadgePNG from "@/assets/passV2/icons/level-badge-disabled.png"
@@ -31,8 +31,8 @@ import { cn } from "@/lib/cn"
 
 const S3CloudUrl =
   import.meta.env.VITE_IS_DEV_LOCAL === undefined
-    ? "https://s3-nutsfarm.crypton.xyz"
-    : "https://s3-nutsfarm-dev.crypton.xyz"
+    ? ""
+    : ""
 
 const freeSound = new Sound(`${S3CloudUrl}/sounds/nutspass/free-opening.mp3`)
 const premiumSound = new Sound(
@@ -223,7 +223,7 @@ const NutsPassV2 = () => {
             if (!firstRowAfterMaxFreeLevelWasFound) {
               firstRowAfterMaxFreeLevelWasFound = true
               return (
-                <>
+                <Fragment key={item.level}>
                   {/* <div className="relative flex" ref={maxFreeLevelBlockRef}>
                     <div className="relative flex h-[124px] flex-1 items-center justify-center bg-gradient-to-r from-[#3B3170] to-[#6A5CB7]">
                       <EndOfFreeLevelIcon className="absolute top-0 -translate-y-1/2 rounded-md drop-shadow-[0px_1px_2px_rgba(0,0,0,0.2)] backdrop-blur-[1px]" />
@@ -287,7 +287,7 @@ const NutsPassV2 = () => {
                       refetched={onRefetched}
                     />
                   </div>
-                </>
+                </Fragment>
               )
             }
 

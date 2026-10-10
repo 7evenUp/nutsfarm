@@ -34,13 +34,13 @@ import { WheelReward } from "@/types/wheel"
 
 const clickSound = new Sound(
   import.meta.env.VITE_IS_DEV_LOCAL === undefined
-    ? "https://s3-nutsfarm.crypton.xyz/sounds/games/wheel-click-new-1.mp3"
-    : "https://s3-nutsfarm-dev.crypton.xyz/sounds/games/wheel-click-new-1.mp3",
+    ? "/sounds/games/wheel-click-new-1.mp3"
+    : "/sounds/games/wheel-click-new-1.mp3",
 )
 const winSound = new Sound(
   import.meta.env.VITE_IS_DEV_LOCAL === undefined
-    ? "https://s3-nutsfarm.crypton.xyz/sounds/games/wheel-win.mp3"
-    : "https://s3-nutsfarm-dev.crypton.xyz/sounds/games/wheel-win.mp3",
+    ? "/sounds/games/wheel-win.mp3"
+    : "/sounds/games/wheel-win.mp3",
 )
 
 const SPIN_COUNT = 9

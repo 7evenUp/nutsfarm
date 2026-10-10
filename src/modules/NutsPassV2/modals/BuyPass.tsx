@@ -25,8 +25,8 @@ import {
   BackButton,
   initBackButton,
   RemoveEventListenerFn,
-} from "@telegram-apps/sdk"
-import { initInvoice } from "@telegram-apps/sdk"
+} from "@/demo/telegram-sdk"
+import { initInvoice } from "@/demo/telegram-sdk"
 
 import { sendMetrika } from "@/utils/sendMetrika"
 import { makeHapticFeedback } from "@/utils/makeHapticFeedback"
@@ -35,7 +35,7 @@ let backButton: BackButton
 // @ts-expect-error Not-in-telegram-environment
 let invoice
 
-if (import.meta.env.VITE_IS_DEV_LOCAL === undefined) {
+if (true) {
   try {
     const [initializedBackButton] = initBackButton()
     backButton = initializedBackButton

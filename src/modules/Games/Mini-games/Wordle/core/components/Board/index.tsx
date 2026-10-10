@@ -12,8 +12,8 @@ import { Sound } from "@/utils/Sound"
 
 const S3CloudUrl =
   import.meta.env.VITE_IS_DEV_LOCAL === undefined
-    ? "https://s3-nutsfarm.crypton.xyz"
-    : "https://s3-nutsfarm-dev.crypton.xyz"
+    ? ""
+    : ""
 
 const CorrectLetterSound = new Sound(
   `${S3CloudUrl}/sounds/games/cryptle/cryptle-green-letter.mp3`,

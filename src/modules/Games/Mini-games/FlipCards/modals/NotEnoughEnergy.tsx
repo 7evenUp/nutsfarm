@@ -2,14 +2,14 @@ import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { toast } from "sonner"
 
-import { initInvoice } from "@telegram-apps/sdk"
+import { initInvoice } from "@/demo/telegram-sdk"
 
 import { makeHapticFeedback } from "@/utils/makeHapticFeedback"
 
 // @ts-expect-error Not-in-telegram-environment
 let invoice
 
-if (import.meta.env.VITE_IS_DEV_LOCAL === undefined) {
+if (true) {
   try {
     invoice = initInvoice()
   } catch {
@@ -191,8 +191,8 @@ const NotEnoughEnergy = ({
             onClick={() => {
               const correctDomain =
                 import.meta.env.VITE_ENVIRONMENT === "PROD"
-                  ? "https://nutsfarm.crypton.xyz/"
-                  : "https://frontend.nutsfarm-dev.crypton.team/"
+                  ? `${window.location.origin}/`
+                  : `${window.location.origin}/`
               openLinkWithTelegram(
                 `${correctDomain}games/flip-cards/?initData=${encodeURIComponent(Telegram.WebApp.initData)}`,
               )

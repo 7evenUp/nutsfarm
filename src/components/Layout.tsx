@@ -33,6 +33,10 @@ import { initVibration } from "@/utils/makeHapticFeedback"
 import { initSound } from "@/utils/makeSoundFeedback"
 
 import { cn } from "@/lib/cn"
+import PublicProfileModal from "@/modals/PublicProfileModal"
+import { initCloudStorage } from "@/demo/telegram-sdk"
+
+const cloudStorage = initCloudStorage()
 
 const OPEN_ONBOARDING_DELAY = 1500
 
@@ -87,7 +91,6 @@ const Layout = () => {
       if (!Telegram.WebApp.initData) {
         storageValue = localStorage.getItem("first-visit")
       } else {
-        // @ts-expect-error Not-in-telegram-environment
         storageValue = await cloudStorage.get("first-visit")
       }
 
@@ -95,7 +98,6 @@ const Layout = () => {
         if (!Telegram.WebApp.initData) {
           localStorage.setItem("first-visit", "false")
         } else {
-          // @ts-expect-error Not-in-telegram-environment
           await cloudStorage.set("first-visit", "false")
         }
       } else {
@@ -103,7 +105,6 @@ const Layout = () => {
           if (!Telegram.WebApp.initData) {
             localStorage.setItem("first-visit", "true")
           } else {
-            // @ts-expect-error Not-in-telegram-environment
             await cloudStorage.set("first-visit", "true")
           }
         }
@@ -155,6 +156,7 @@ const Layout = () => {
       </div>
 
       <Onboarding open={open} setOpen={setOpen} />
+      <PublicProfileModal />
 
       {streak &&
       !streak.streakRewardReceivedToday &&

@@ -7,6 +7,7 @@ export default defineConfig(({ command }) => {
   if (command === "serve") {
     return {
       plugins: [react(), svgr()],
+      define: { "import.meta.env.VITE_IS_DEV_LOCAL": JSON.stringify("demo") },
       resolve: {
         alias: {
           "@": path.resolve(__dirname, "./src"),
@@ -38,6 +39,7 @@ export default defineConfig(({ command }) => {
       //   },
       // },
       plugins: [react(), svgr()],
+      define: { "import.meta.env.VITE_IS_DEV_LOCAL": JSON.stringify("demo") },
       resolve: {
         alias: {
           "@": path.resolve(__dirname, "./src"),

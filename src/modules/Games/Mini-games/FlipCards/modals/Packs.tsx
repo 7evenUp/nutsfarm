@@ -29,12 +29,12 @@ import { GameInventoryItem } from "@/types/games"
 
 import { cn } from "@/lib/cn"
 
-import { initCloudStorage } from "@telegram-apps/sdk"
+import { initCloudStorage } from "@/demo/telegram-sdk"
 
 // @ts-expect-error Not-in-telegram-environment
 let cloudStorage
 
-if (import.meta.env.VITE_IS_DEV_LOCAL === undefined) {
+if (true) {
   try {
     cloudStorage = initCloudStorage()
   } catch {
@@ -72,31 +72,7 @@ const Packs = ({
     if (cardPacks === null) return
 
     const getPackIdFromCloudStorage = async () => {
-      if (import.meta.env.VITE_IS_DEV_LOCAL !== undefined) {
-        const actualPack = cardPacks.find((pack) => {
-          try {
-            if (pack.pack !== null) {
-              JSON.parse(pack.pack.body)
-              return pack
-            }
-          } catch {
-            /* empty */
-          }
-        })
-
-        if (actualPack) {
-          dispatch(setPackId(actualPack.objectId))
-          dispatch(
-            setPackTitle(
-              lang === "RU"
-                ? actualPack.pack?.title || ""
-                : actualPack.pack?.titleEn || "",
-            ),
-          )
-          dispatch(setPackBonus(actualPack.pack!.bonus))
-          dispatch(setPackBody(JSON.parse(actualPack.pack!.body)))
-        }
-      } else {
+      {
         let packId: string | null
         if (Telegram.WebApp.initData) {
           // @ts-expect-error Not-in-telegram-environment

@@ -34,13 +34,13 @@ import { sendMetrika } from "@/utils/sendMetrika"
 
 import { cn } from "@/lib/cn"
 
-import { initInvoice } from "@telegram-apps/sdk"
+import { initInvoice } from "@/demo/telegram-sdk"
 import { openLinkWithTelegram } from "@/utils/openLink"
 
 // @ts-expect-error Not-in-telegram-environment
 let invoice
 
-if (import.meta.env.VITE_IS_DEV_LOCAL === undefined) {
+if (true) {
   try {
     invoice = initInvoice()
   } catch {
@@ -150,10 +150,6 @@ const BuyEnergyModal = ({
   }, [paymentStatus])
 
   const buyEnergy = async () => {
-    if (import.meta.env.VITE_IS_DEV_LOCAL !== undefined) {
-      return
-    }
-
     if (isCommitPaymentLocked) return
     if (energyItem === null) return
     if (energyToBuy === null) return
@@ -285,8 +281,8 @@ const BuyEnergyModal = ({
                   onClick={() => {
                     const correctDomain =
                       import.meta.env.VITE_ENVIRONMENT === "PROD"
-                        ? "https://nutsfarm.crypton.xyz/"
-                        : "https://frontend.nutsfarm-dev.crypton.team/"
+                        ? `${window.location.origin}/`
+                        : `${window.location.origin}/`
                     openLinkWithTelegram(
                       `${correctDomain}games/cryptle/?initData=${encodeURIComponent(Telegram.WebApp.initData)}`,
                     )

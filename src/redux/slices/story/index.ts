@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import type { PayloadAction } from "@reduxjs/toolkit"
 
-interface StoryState {
+export interface StoryState {
   openedStoryId: string | null
 }
 

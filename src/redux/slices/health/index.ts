@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import type { PayloadAction } from "@reduxjs/toolkit"
 
-interface HealthState {
+export interface HealthState {
   healthPoints: number | null
 }
 

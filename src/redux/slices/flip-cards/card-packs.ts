@@ -3,7 +3,7 @@ import type { PayloadAction } from "@reduxjs/toolkit"
 
 import { CardsPackBody } from "@/types/games"
 
-interface CardPacksState {
+export interface CardPacksState {
   chosenPackId: number | null
   chosenPackTitle: string
   packBody: CardsPackBody[]

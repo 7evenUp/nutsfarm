@@ -31,8 +31,8 @@ import { sendMetrika } from "@/utils/sendMetrika"
 
 const S3CloudUrl =
   import.meta.env.VITE_IS_DEV_LOCAL === undefined
-    ? "https://s3-nutsfarm.crypton.xyz"
-    : "https://s3-nutsfarm-dev.crypton.xyz"
+    ? ""
+    : ""
 
 const successBoughtSound = new Sound(
   `${S3CloudUrl}/sounds/games/flip-cards/flip-cards-pack-was-bought.mp3`,

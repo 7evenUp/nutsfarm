@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react"
 import { Description } from "@radix-ui/react-dialog"
 import { toast } from "sonner"
-import { initInvoice } from "@telegram-apps/sdk"
+import { initInvoice } from "@/demo/telegram-sdk"
 import { useTranslation } from "react-i18next"
 import { useMotionValue, useTransform, motion } from "framer-motion"
 
@@ -10,7 +10,7 @@ import { makeHapticFeedback } from "@/utils/makeHapticFeedback"
 // @ts-expect-error Not-in-telegram-environment
 let invoice
 
-if (import.meta.env.VITE_IS_DEV_LOCAL === undefined) {
+if (true) {
   try {
     invoice = initInvoice()
   } catch {

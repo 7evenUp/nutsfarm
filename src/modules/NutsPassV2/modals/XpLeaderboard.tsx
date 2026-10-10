@@ -33,13 +33,13 @@ import {
   BackButton,
   initBackButton,
   RemoveEventListenerFn,
-} from "@telegram-apps/sdk"
+} from "@/demo/telegram-sdk"
 import { setOpenedProfileId } from "@/redux/slices/public-profile"
 import { useAppDispatch } from "@/redux/hooks"
 
 let backButton: BackButton
 
-if (import.meta.env.VITE_IS_DEV_LOCAL === undefined) {
+if (true) {
   try {
     const [initializedBackButton] = initBackButton()
     backButton = initializedBackButton

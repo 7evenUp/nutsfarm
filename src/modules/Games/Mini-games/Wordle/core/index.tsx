@@ -2,7 +2,7 @@ import {
   BackButton,
   initBackButton,
   RemoveEventListenerFn,
-} from "@telegram-apps/sdk"
+} from "@/demo/telegram-sdk"
 
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
@@ -33,7 +33,7 @@ import { useGetCurrentUserQuery } from "@/redux/api/user"
 
 let backButton: BackButton
 
-if (import.meta.env.VITE_IS_DEV_LOCAL === undefined) {
+if (true) {
   try {
     const [initializedBackButton] = initBackButton()
     backButton = initializedBackButton
@@ -131,6 +131,24 @@ const Wordle = () => {
         skin === "PURPLE" && "bg-cryptle-game-back-purple-skin",
       )}
     >
+      <button
+        className="absolute left-4 top-16 z-20 rounded-lg bg-black/30 px-3 py-2 text-sm"
+        onClick={async () => {
+          if (gameData && !claimData && !isStartClaimLoading)
+            await failLevel({
+              id: gameData.id,
+              gameType: "WORDLY",
+              token: encryptToken(
+                gameData.gameLevelDifficultyId,
+                "1337",
+                "1970.01.01 00:00",
+              ),
+            })
+          navigate("/games/cryptle")
+        }}
+      >
+        {value === "RU" ? "Назад" : "Back"}
+      </button>
       <div className="absolute top-0">
         <LevelBadge
           level={gameData?.levelNumber}

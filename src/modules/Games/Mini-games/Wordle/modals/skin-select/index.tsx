@@ -1,6 +1,7 @@
+import { writeStorage } from "@/demo/storage"
 import { Dispatch, SetStateAction, useMemo } from "react"
 import { useTranslation } from "react-i18next"
-import { initCloudStorage } from "@telegram-apps/sdk"
+import { initCloudStorage } from "@/demo/telegram-sdk"
 
 import {
   Modal,
@@ -25,7 +26,7 @@ import { cn } from "@/lib/cn"
 // @ts-expect-error Not-in-telegram-environment
 let cloudStorage
 
-if (import.meta.env.VITE_IS_DEV_LOCAL === undefined) {
+if (true) {
   try {
     cloudStorage = initCloudStorage()
   } catch {
@@ -76,7 +77,7 @@ const SkinsSelectModal = ({
   const selectSkin = async (skin: SkinType) => {
     try {
       if (import.meta.env.VITE_IS_DEV_LOCAL !== undefined) {
-        localStorage.setItem("cryptleSkin", skin)
+        writeStorage("nutsfarm-demo:cryptleSkin", skin)
       } else {
         // @ts-expect-error Not-in-telegram-environment
         await cloudStorage.set("cryptleSkin", skin)

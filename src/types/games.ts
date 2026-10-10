@@ -121,7 +121,7 @@ export interface GameInventoryItem {
   type: "WORDLY_COLOUR" | "CARDS_PACK"
   pack: {
     id: string
-    isDefault: true
+    isDefault: boolean
     title: string
     titleEn: string
     image: string

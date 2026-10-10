@@ -16,16 +16,16 @@ import { Sound } from "@/utils/Sound"
 import { Block, Lesson } from "@/types/learn"
 
 const finalScreenSound = new Sound(
-  "https://s3-nutsfarm.crypton.xyz/sounds/final.mp3",
+  "/sounds/final.mp3",
 )
 const nextClickSound = new Sound(
-  "https://s3-nutsfarm.crypton.xyz/sounds/next.mp3",
+  "/sounds/next.mp3",
 )
 const previewStartsSound = new Sound(
-  "https://s3-nutsfarm.crypton.xyz/sounds/preview.mp3",
+  "/sounds/preview.mp3",
 )
 const successQuizSound = new Sound(
-  "https://s3-nutsfarm.crypton.xyz/sounds/quiz-success.mp3",
+  "/sounds/quiz-success.mp3",
 )
 
 const LessonContent = ({

@@ -2,12 +2,12 @@ import { useEffect, useState } from "react"
 import { toast } from "sonner"
 import { useTranslation } from "react-i18next"
 
-import { initInvoice } from "@telegram-apps/sdk"
+import { initInvoice } from "@/demo/telegram-sdk"
 
 // @ts-expect-error Not-in-telegram-environment
 let invoice
 
-if (import.meta.env.VITE_IS_DEV_LOCAL === undefined) {
+if (true) {
   try {
     invoice = initInvoice()
   } catch {

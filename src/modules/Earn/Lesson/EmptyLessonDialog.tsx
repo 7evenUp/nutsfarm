@@ -9,7 +9,7 @@ import { Block, Lesson as LessonType } from "@/types/learn"
 import { Sound } from "@/utils/Sound"
 
 const finalScreenSound = new Sound(
-  "https://s3-nutsfarm.crypton.xyz/sounds/final.mp3",
+  "/sounds/final.mp3",
 )
 
 const EmptyLessonDialog = ({

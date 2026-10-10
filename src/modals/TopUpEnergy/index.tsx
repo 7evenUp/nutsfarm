@@ -5,12 +5,12 @@ import { toast } from "sonner"
 
 import { makeHapticFeedback } from "@/utils/makeHapticFeedback"
 
-import { initInvoice } from "@telegram-apps/sdk"
+import { initInvoice } from "@/demo/telegram-sdk"
 
 // @ts-expect-error Not-in-telegram-environment
 let invoice
 
-if (import.meta.env.VITE_IS_DEV_LOCAL === undefined) {
+if (true) {
   try {
     invoice = initInvoice()
   } catch {
@@ -26,7 +26,6 @@ import ArrowLeftIcon from "@/assets/icons/arrow-left.svg?react"
 import StarIcon from "@/assets/lesson-icons/star-icon.svg?react"
 import TonIcon from "@/assets/icons/ton.svg?react"
 import Loader from "@/assets/icons/loader.svg?react"
-import BadgePercent from "@/assets/icons/badge-percent.svg?react"
 
 import { Sheet, SheetContent, SheetHeader } from "@/shared/ui/SideSheet"
 import { LargeButton } from "@/shared/ui/LargeButton"
@@ -40,7 +39,6 @@ import {
 import { useGetGameEnergyQuery } from "@/redux/api/games"
 
 import { getHours, getMinutes } from "@/utils/date"
-import { openLinkWithTelegram } from "@/utils/openLink"
 
 import { cn } from "@/lib/cn"
 
@@ -214,23 +212,7 @@ const TopUpEnergyDialog = ({
             <ArrowLeftIcon />
             {t("Назад")}
           </button>
-          {Telegram.WebApp.initData && (
-            <button
-              className="flex h-fit items-center gap-1 rounded-full bg-white px-1.5 py-1 text-xs font-bold text-background"
-              onClick={() => {
-                const correctDomain =
-                  import.meta.env.VITE_ENVIRONMENT === "PROD"
-                    ? "https://nutsfarm.crypton.xyz/"
-                    : "https://frontend.nutsfarm-dev.crypton.team/"
-                openLinkWithTelegram(
-                  `${correctDomain}games/?initData=${encodeURIComponent(Telegram.WebApp.initData)}`,
-                )
-              }}
-            >
-              Open Web
-              <BadgePercent className="h-5 w-5" />
-            </button>
-          )}
+
         </div>
 
         <div className="mt-1 flex flex-col items-center gap-2.5 font-tt-hoves-expanded text-2xl font-semibold text-white">

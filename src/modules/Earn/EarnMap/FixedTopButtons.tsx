@@ -27,7 +27,7 @@ import { hexToHsl } from "@/utils/hexToHsl"
 
 import { cn } from "@/lib/cn"
 
-import { initCloudStorage } from "@telegram-apps/sdk"
+import { initCloudStorage } from "@/demo/telegram-sdk"
 import { t } from "i18next"
 
 // @ts-expect-error Not-in-telegram-environment

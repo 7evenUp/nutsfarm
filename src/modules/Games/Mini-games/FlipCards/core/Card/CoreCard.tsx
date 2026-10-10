@@ -17,8 +17,8 @@ const CoreCard = ({
 
   useEffect(() => {
     const extractColorFromLogo = async () => {
-      const x = await extractColors(imgSrc)
-      setBorderColor(x[0].hex + "B3") // B3 - 70% opacity
+      const x = await extractColors(imgSrc).catch(() => [])
+      if (x[0]) setBorderColor(x[0].hex + "B3") // B3 - 70% opacity
     }
 
     extractColorFromLogo()

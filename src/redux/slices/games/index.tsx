@@ -3,11 +3,11 @@ import type { PayloadAction } from "@reduxjs/toolkit"
 import { UserGameLevelDifficultyInfo } from "@/types/games"
 import { SkinType } from "@/types/cryptle"
 
-interface GameData extends UserGameLevelDifficultyInfo {
+export interface GameData extends UserGameLevelDifficultyInfo {
   levelNumber: number
 }
 
-interface GameState {
+export interface GameState {
   gameData: GameData | null
   skin: SkinType
 }

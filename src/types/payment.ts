@@ -77,6 +77,7 @@ export interface CommitPaymentRequest {
 }
 
 export type PurschaseItemType =
+  | "UNLOCK_INVENTORY_CLAIM"
   | "NUT_PASS"
   | "DEFAULT"
   | "DONATION"

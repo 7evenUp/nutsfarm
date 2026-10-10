@@ -57,8 +57,8 @@ type DraggingState =
 
 const S3CloudUrl =
   import.meta.env.VITE_IS_DEV_LOCAL === undefined
-    ? "https://s3-nutsfarm.crypton.xyz"
-    : "https://s3-nutsfarm-dev.crypton.xyz"
+    ? ""
+    : ""
 
 const pickSound = new Sound(
   `${S3CloudUrl}/sounds/games/puzzles/puzzles-took-piece.mp3`,

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
-import { initCloudStorage } from "@telegram-apps/sdk"
+import { initCloudStorage } from "@/demo/telegram-sdk"
 import { useTranslation } from "react-i18next"
 
 // @ts-expect-error Not-in-telegram-environment
 let cloudStorage
 
-if (import.meta.env.VITE_IS_DEV_LOCAL === undefined) {
+if (true) {
   try {
     cloudStorage = initCloudStorage()
   } catch {

@@ -5,7 +5,7 @@ import {
   BackButton,
   initBackButton,
   RemoveEventListenerFn,
-} from "@telegram-apps/sdk"
+} from "@/demo/telegram-sdk"
 
 import CloseIcon from "@/assets/icons/close.svg?react"
 import NutcrackerIcon from "@/assets/icons/nutcracker.svg?react"
@@ -33,7 +33,7 @@ import { cn } from "@/lib/cn"
 
 let backButton: BackButton
 
-if (import.meta.env.VITE_IS_DEV_LOCAL === undefined) {
+if (true) {
   try {
     const [initializedBackButton] = initBackButton()
     backButton = initializedBackButton
@@ -62,7 +62,7 @@ const NutcrackersDialog = ({
     makeHapticFeedback({ impactOccured: "soft" })
 
     // sendMetrika("nutcrackers_collection_open")
-    Telegram.WebApp.openLink("https://nutcrackers.crypton.xyz/")
+    handleOpenNutcrackersStories()
   }
 
   const onLargeBtnClick = () => {
@@ -70,7 +70,7 @@ const NutcrackersDialog = ({
 
     // sendMetrika("nutcrackers_collection_open_by_btn")
     // Telegram.WebApp.openLink("https://getgems.io/nutcrackers")
-    Telegram.WebApp.openLink("https://nutcrackers.crypton.xyz")
+    handleOpenNutcrackersStories()
   }
 
   const handleOpenNutcrackersStories = () => {

@@ -1,4 +1,4 @@
-import { motion, Variants } from "framer-motion"
+import { motion, Variants, HTMLMotionProps } from "framer-motion"
 import React from "react"
 
 type PresetType = "blur" | "shake" | "scale" | "fade" | "slide"
@@ -6,7 +6,7 @@ type PresetType = "blur" | "shake" | "scale" | "fade" | "slide"
 type TextEffectProps = {
   children: string
   per?: "word" | "char"
-  as?: keyof JSX.IntrinsicElements
+  as?: keyof HTMLElementTagNameMap
   variants?: {
     container?: Variants
     item?: Variants
@@ -117,7 +117,7 @@ export function TextEffect({
   preset,
 }: TextEffectProps) {
   const words = children.split(/(\S+)/)
-  const MotionTag = motion[as as keyof typeof motion]
+  const MotionTag = motion[as] as React.ComponentType<HTMLMotionProps<"div">>
   const selectedVariants = preset
     ? presetVariants[preset]
     : { container: defaultContainerVariants, item: defaultItemVariants }

@@ -20,7 +20,7 @@ import { Sound } from "@/utils/Sound"
 import { makeHapticFeedback } from "@/utils/makeHapticFeedback"
 import { cn } from "@/lib/cn"
 
-import { initCloudStorage } from "@telegram-apps/sdk"
+import { initCloudStorage } from "@/demo/telegram-sdk"
 
 // @ts-expect-error Not-in-telegram-environment
 let cloudStorage

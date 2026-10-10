@@ -1,9 +1,10 @@
+import { readStorage, writeStorage } from "@/demo/storage"
 import {
   BackButton,
   initBackButton,
   initCloudStorage,
   RemoveEventListenerFn,
-} from "@telegram-apps/sdk"
+} from "@/demo/telegram-sdk"
 import { Sound } from "@/utils/Sound"
 
 import { useEffect, useLayoutEffect, useMemo, useState } from "react"
@@ -28,8 +29,8 @@ import { cn } from "@/lib/cn"
 
 const S3CloudUrl =
   import.meta.env.VITE_IS_DEV_LOCAL === undefined
-    ? "https://s3-nutsfarm.crypton.xyz"
-    : "https://s3-nutsfarm-dev.crypton.xyz"
+    ? ""
+    : ""
 
 const BetSound = new Sound(
   `${S3CloudUrl}/sounds/games/cryptle/cryptle-select-bet.mp3`,
@@ -39,7 +40,7 @@ const BetSound = new Sound(
 let cloudStorage
 let backButton: BackButton
 
-if (import.meta.env.VITE_IS_DEV_LOCAL === undefined) {
+if (true) {
   try {
     const [initializedBackButton] = initBackButton()
     backButton = initializedBackButton
@@ -74,7 +75,7 @@ const WordleMenu = () => {
         let savedSkin: SkinType | null = null
 
         if (import.meta.env.VITE_IS_DEV_LOCAL !== undefined) {
-          savedSkin = localStorage.getItem("cryptleSkin") as SkinType | null
+          savedSkin = readStorage("nutsfarm-demo:cryptleSkin") as SkinType | null
         } else {
           // @ts-expect-error Not-in-telegram-environment
           savedSkin = await cloudStorage.get("cryptleSkin")
@@ -83,7 +84,7 @@ const WordleMenu = () => {
         dispatch(setSkin(savedSkin || "DEFAULT"))
 
         if (savedSkin) return
-        localStorage.setItem("cryptleSkin", "DEFAULT")
+        writeStorage("nutsfarm-demo:cryptleSkin", "DEFAULT")
       } catch (error) {
         dispatch(setSkin("DEFAULT"))
       }
