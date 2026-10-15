@@ -19,6 +19,7 @@ try {
     resetDemo,
     refillDemo,
     demoSummary,
+    startDemoStreak,
   } = await server.ssrLoadModule("/src/demo/backend.ts")
   const request = async (url, params, body, method = body ? "POST" : "GET") => {
     const response = await demoBaseQuery({ url, params, body, method })
@@ -48,6 +49,8 @@ try {
     return payment
   }
   resetDemo()
+  startDemoStreak(0)
+  assert.equal((await request("streak/current/info")).daysMissed, 0)
   const user = await request("user/current")
   assert.equal(user.isNutPassActive, false)
   Object.freeze(user)
@@ -213,6 +216,7 @@ try {
   await request("farming/farm", undefined, {}, "POST")
   const farm = await request("farming/current")
   assert.equal(farm.status, "FARMING")
+  assert.equal(farm.claimAmount, 100)
   const premature = await demoBaseQuery({
     url: "farming/claim",
     method: "POST",
@@ -224,7 +228,7 @@ try {
     assert.equal((await request("farming/current")).status, "READY_TO_CLAIM")
     const before = (await request("user/current")).balance
     await request("farming/claim", undefined, {}, "POST")
-    assert.equal((await request("user/current")).balance, before + 3000)
+    assert.equal((await request("user/current")).balance, before + 100)
     assert.equal((await request("farming/current")).status, "READY_TO_FARM")
   } finally {
     Date.now = realNow
@@ -261,6 +265,88 @@ try {
     (await request("game/current/started", { type: "CARDS" })).length,
     0,
   )
+  startDemoStreak(1)
+  const frozen = await request("streak/current/info")
+  assert.equal(frozen.daysMissed, 1)
+  assert.equal(frozen.missedDaysFreezeCost, 500)
+  assert.equal((await request("streak/current/info")).daysMissed, 1)
+  assert.equal(
+    JSON.parse(memory.get("nutsfarm-portfolio-v1")).streakDaysMissed,
+    1,
+  )
+  const freezeBalance = (await request("user/current")).balance
+  const kept = await request(
+    "streak/current/claim",
+    { payForFreeze: true },
+    undefined,
+    "POST",
+  )
+  assert.equal(kept.daysMissed, 0)
+  assert.equal(kept.todayStreakInfo.dayNumber, 7)
+  assert.ok(kept.streakDays.some((day) => day.freezing))
+  assert.equal(
+    (await request("user/current")).balance,
+    freezeBalance - 500 + 700,
+  )
+  await request(
+    "streak/current/claim",
+    { payForFreeze: true },
+    undefined,
+    "POST",
+  )
+  assert.equal(
+    (await request("user/current")).balance,
+    freezeBalance - 500 + 700,
+  )
+  startDemoStreak(1)
+  const restartBalance = (await request("user/current")).balance
+  const restarted = await request(
+    "streak/current/claim",
+    { payForFreeze: false },
+    undefined,
+    "POST",
+  )
+  assert.equal(restarted.todayStreakInfo.dayNumber, 1)
+  assert.equal(restarted.daysMissed, 0)
+  assert.equal(restarted.streakRewardReceivedToday, true)
+  assert.equal((await request("user/current")).balance, restartBalance)
+  const scenarioBalance = (await request("user/current")).balance
+  startDemoStreak(0)
+  const regular = await request("streak/current/info")
+  assert.equal(regular.daysMissed, 0)
+  assert.equal(regular.todayStreakInfo.dayNumber, 7)
+  assert.equal(regular.streakRewardReceivedToday, false)
+  assert.equal(
+    (await request("user/current")).balance,
+    scenarioBalance,
+    "Launching a scenario preserves purchases and balance",
+  )
+  startDemoStreak(2)
+  const twoDays = await request("streak/current/info")
+  assert.equal(twoDays.daysMissed, 2)
+  assert.equal(twoDays.missedDaysFreezeCost, 1000)
+  assert.equal(twoDays.streakDays.filter((day) => !day.hasEnter).length, 2)
+  const twoDayBalance = (await request("user/current")).balance
+  const twoDaysKept = await request(
+    "streak/current/claim",
+    { payForFreeze: true },
+    undefined,
+    "POST",
+  )
+  assert.equal(twoDaysKept.daysMissed, 0)
+  assert.equal(twoDaysKept.streakDays.filter((day) => day.freezing).length, 2)
+  assert.equal(
+    (await request("user/current")).balance,
+    twoDayBalance - 1000 + 700,
+  )
+  startDemoStreak(2)
+  const resetBalance = (await request("user/current")).balance
+  const resetTwoDays = await request("streak/current/claim",
+    { payForFreeze: false }, undefined, "POST")
+  assert.equal(resetTwoDays.todayStreakInfo.dayNumber, 1)
+  assert.equal(resetTwoDays.daysMissed, 0)
+  assert.equal(resetTwoDays.streakDays.some((day) => day.freezing), false)
+  assert.equal((await request("user/current")).balance, resetBalance)
   console.log(
     "Demo integration checks passed: purchases, rewards, all games, retries, wheels, inventory, lessons, tasks, persistence and reset.",
   )

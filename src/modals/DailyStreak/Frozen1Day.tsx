@@ -71,30 +71,15 @@ const Frozen1Day = () => {
         }, 2000)
       }, 2500)
 
-      const controller = new AbortController()
-
-      window.addEventListener(
-        "click",
-        () => {
-          if (firstTimeoutId) clearTimeout(firstTimeoutId)
-          if (secondTimeoutId) clearTimeout(secondTimeoutId)
-          refetchCurrentUser()
-          refetchStreak()
-          setOpen(false)
-        },
-        { once: true, signal: controller.signal },
-      )
-
       return () => {
         if (firstTimeoutId) clearTimeout(firstTimeoutId)
         if (secondTimeoutId) clearTimeout(secondTimeoutId)
-        controller.abort()
       }
     }
   }, [isAnimationStarted])
 
   useEffect(() => {
-    if (open && streak) {
+    if (open && streak && !isAnimationStarted) {
       // Анимация, которую можно проскипать
       const animation = animate([
         // инициализируем начальные положения каждого слоя
@@ -114,7 +99,7 @@ const Frozen1Day = () => {
       })
       setCurrentAnimation(animation)
     }
-  }, [streak])
+  }, [streak, isAnimationStarted])
 
   useEffect(() => {
     if (currentAnimation === null) return
@@ -179,11 +164,9 @@ const Frozen1Day = () => {
 
     try {
       await claimStreak({ timezone, payForFreeze: false }).unwrap()
-
-      setTimeout(() => {
-        refetchCurrentUser()
-        refetchStreak()
-      }, 200)
+      setOpen(false)
+      refetchCurrentUser()
+      refetchStreak()
     } catch {
       toast.error(t("Ошибка"), {
         description: t("Упс, что-то пошло не так"),
@@ -205,7 +188,10 @@ const Frozen1Day = () => {
         </Description>
 
         {isAnimationStarted ? (
-          <div className="relative flex h-screen w-screen flex-col items-center justify-center">
+          <div
+            key="freeze-animation"
+            className="relative flex h-screen w-screen flex-col items-center justify-center"
+          >
             <span className="-mt-10 mb-16 h-16 w-[240px] text-center font-tt-hoves-expanded text-xl font-semibold tracking-[-0.02em] phone-sm-fix:w-[275px] phone-sm-fix:text-2xl">
               {isTextChanged ? (
                 <TextEffect per="word" preset="slide">
@@ -255,6 +241,7 @@ const Frozen1Day = () => {
           </div>
         ) : (
           <div
+            key="freeze-preview"
             className="relative flex h-screen w-screen flex-col items-center"
             ref={scope}
           >

@@ -23,6 +23,8 @@ import {
 } from "./fixtures"
 import { DEMO_STORAGE_KEY, readStorage, writeStorage } from "./storage"
 
+const FARMING_REWARD = 100
+
 function createState() {
   return structuredClone({
     version: 3,
@@ -85,6 +87,9 @@ function createState() {
     ],
     farming: { start: 0, finish: 0, claimed: false },
     streakClaimDate: "",
+    streakDaysMissed: 0,
+    streakDayNumber: 7,
+    streakFrozenDays: [] as number[],
     payments: {} as Record<
       string,
       {
@@ -113,13 +118,20 @@ function restore(): DemoState {
       Array.isArray(saved.started) &&
       saved.payments
     )
-      return saved
+      return {
+        ...saved,
+        // Existing saves keep their streak when new fields are introduced.
+        streakDaysMissed: saved.streakDaysMissed ?? 0,
+        streakDayNumber: saved.streakDayNumber ?? 7,
+        streakFrozenDays: saved.streakFrozenDays ?? [],
+      }
   } catch {
     /* A damaged or outdated save starts a fresh demo. */
   }
   return createState()
 }
 let state = restore()
+writeStorage(DEMO_STORAGE_KEY, JSON.stringify(state))
 export function demoSummary() {
   return {
     stars: state.stars,
@@ -135,6 +147,13 @@ function save() {
 }
 export function resetDemo() {
   state = createState()
+  save()
+}
+export function startDemoStreak(daysMissed: 0 | 1 | 2) {
+  state.streakClaimDate = ""
+  state.streakDaysMissed = daysMissed
+  state.streakDayNumber = 7
+  state.streakFrozenDays = []
   save()
 }
 export function refillDemo() {
@@ -318,20 +337,28 @@ function request(args: string | FetchArgs): unknown {
     additionalReward: null,
   })
   const streakInfo = () => ({
-    daysMissed: 0,
-    missedDaysFreezeCost: 0,
-    todayStreakInfo: streakDay(7),
+    daysMissed: state.streakDaysMissed,
+    missedDaysFreezeCost: state.streakDaysMissed * 500,
+    todayStreakInfo: streakDay(state.streakDayNumber),
     lastUserStreakDay: {
       id: 1,
       userId: 1337,
-      currentStreak: 7,
+      currentStreak: state.streakDayNumber,
       dropStreakAfter: new Date(Date.now() + 86400000).toISOString(),
       createdAt: "2026-01-01T12:00:00Z",
     },
-    streakDays: Array.from({ length: 7 }, (_, i) => ({
-      day: new Date(Date.now() - (6 - i) * 86400000).toISOString(),
-      hasEnter: true,
-      freezing: false,
+    streakDays: Array.from({ length: state.streakDayNumber }, (_, i) => ({
+      day: new Date(
+        Date.now() - (state.streakDayNumber - 1 - i) * 86400000,
+      ).toISOString(),
+      hasEnter:
+        !state.streakFrozenDays.includes(i + 1) &&
+        !(
+          state.streakDaysMissed > 0 &&
+          i >= state.streakDayNumber - 1 - state.streakDaysMissed &&
+          i < state.streakDayNumber - 1
+        ),
+      freezing: state.streakFrozenDays.includes(i + 1),
     })),
     streakRewardReceivedToday:
       state.streakClaimDate === new Date().toISOString().slice(0, 10),
@@ -603,7 +630,7 @@ function request(args: string | FetchArgs): unknown {
         : state.farming.finish <= Date.now()
           ? "READY_TO_CLAIM"
           : "FARMING",
-      claimAmount: 3000,
+      claimAmount: FARMING_REWARD,
       nutcrackerBoostPercent: 0,
       nutcrackerBonusInHour: 0,
     }
@@ -619,7 +646,7 @@ function request(args: string | FetchArgs): unknown {
   if (path === "farming/claim") {
     if (!state.farming.start || state.farming.finish > Date.now())
       reject("Урожай ещё не готов")
-    credit(3000, 100, "FARM")
+    credit(FARMING_REWARD, 100, "FARM")
     state.farming = { start: 0, finish: 0, claimed: true }
     return null
   }
@@ -637,7 +664,29 @@ function request(args: string | FetchArgs): unknown {
   if (path === "streak/current/info") return streakInfo()
   if (path === "streak/current/claim") {
     if (!streakInfo().streakRewardReceivedToday) {
-      credit(700, 100, "DAILY_STREAK_REWARD")
+      const resetStreak =
+        state.streakDaysMissed > 0 && param("payForFreeze") !== "true"
+      if (state.streakDaysMissed > 0) {
+        if (param("payForFreeze") === "true") {
+          const cost = streakInfo().missedDaysFreezeCost
+          if (state.user.balance < cost)
+            reject("Недостаточно орехов для заморозки")
+          credit(-cost)
+          for (let missed = state.streakDaysMissed; missed > 0; missed--) {
+            state.streakFrozenDays.push(state.streakDayNumber - missed)
+          }
+        } else {
+          state.streakDayNumber = 1
+          state.streakFrozenDays = []
+        }
+        state.streakDaysMissed = 0
+      }
+      if (!resetStreak)
+        credit(
+          streakDay(state.streakDayNumber).nutsReward,
+          100,
+          "DAILY_STREAK_REWARD",
+        )
       state.streakClaimDate = new Date().toISOString().slice(0, 10)
     }
     return streakInfo()

@@ -105,6 +105,15 @@ const router = createBrowserRouter([
   },
 ])
 
+if (window.frameElement?.hasAttribute("data-phone-screen")) {
+  router.subscribe(() => {
+    window.parent.postMessage(
+      { type: "nutsfarm:location", href: window.location.href },
+      window.location.origin,
+    )
+  })
+}
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Providers>

@@ -21,7 +21,6 @@ import Onboarding from "@/modals/Onboarding"
 
 import { useAppDispatch } from "@/redux/hooks"
 import { setTelegramPerformanceClass } from "@/redux/slices/performance"
-import { useGetCurrentStreakQuery } from "@/redux/api/streak"
 import {
   useGetCurrentUserQuery,
   useSendUtmDataMutation,
@@ -40,20 +39,32 @@ const cloudStorage = initCloudStorage()
 
 const OPEN_ONBOARDING_DELAY = 1500
 
-const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
-
 const Layout = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const { pathname } = useLocation()
 
   const [open, setOpen] = useState(false)
+  const [streakPreview, setStreakPreview] = useState<{
+    daysMissed: 0 | 1 | 2
+    id: number
+  } | null>(null)
 
   const { data: currentUser } = useGetCurrentUserQuery()
-  const { data: streak } = useGetCurrentStreakQuery({
-    timezone,
-  })
   const [sendUtm, { isLoading }] = useSendUtmDataMutation()
+
+  useEffect(() => {
+    const launch = (event: Event) => {
+      const { daysMissed } = (event as CustomEvent<{ daysMissed: 0 | 1 | 2 }>)
+        .detail
+      setStreakPreview((previous) => ({
+        daysMissed,
+        id: (previous?.id ?? 0) + 1,
+      }))
+    }
+    window.addEventListener("nutsfarm:streak-preview", launch)
+    return () => window.removeEventListener("nutsfarm:streak-preview", launch)
+  }, [])
 
   //detection on performance class for android devices
   useEffect(() => {
@@ -158,18 +169,16 @@ const Layout = () => {
       <Onboarding open={open} setOpen={setOpen} />
       <PublicProfileModal />
 
-      {streak &&
-      !streak.streakRewardReceivedToday &&
-      currentUser &&
-      currentUser.isStartBonusClaimed ? (
-        streak.daysMissed === 0 ? (
-          <DailyStreakDialog />
-        ) : streak.daysMissed === 1 ? (
-          <Frozen1Day />
+      {/* Keep the chosen dialog mounted while its reward animation plays.
+          Claiming refreshes the API data before the animation finishes. */}
+      {streakPreview &&
+        (streakPreview.daysMissed === 2 ? (
+          <Frozen2Days key={streakPreview.id} />
+        ) : streakPreview.daysMissed === 1 ? (
+          <Frozen1Day key={streakPreview.id} />
         ) : (
-          streak.daysMissed === 2 && <Frozen2Days />
-        )
-      ) : null}
+          <DailyStreakDialog key={streakPreview.id} />
+        ))}
 
       <Toaster
         position="top-center"

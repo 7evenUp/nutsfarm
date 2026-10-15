@@ -8,11 +8,30 @@ const StreakRank = ({ nutDashRank }: { nutDashRank: string }) => {
   const lang = useAppSelector((state) => state.language.value)
 
   const rankName = nutDashRank.trim().toLowerCase()
+  const hasRankColor = [
+    "bronze",
+    "silver",
+    "gold",
+    "rookie",
+    "learner",
+    "fast feet",
+    "athlete",
+    "runner",
+    "marathoner",
+    "master",
+    "lightning",
+    "champion",
+    "legend",
+  ].includes(rankName)
 
   return (
     <div
       className={cn(
         "relative flex w-fit items-center justify-center overflow-hidden rounded-lg bg-gradient-to-r px-2 py-1.5",
+        rankName === "bronze" && "from-[#F5CEAB] to-[#CD915E]",
+        rankName === "silver" && "from-[#E8EDF5] to-[#AAB8CE]",
+        rankName === "gold" && "from-[#FFEB99] to-[#E9B849]",
+        !hasRankColor && "bg-white/10",
         rankName === "rookie" && "from-[#E9E9E9] to-[#B0B0B0]",
         rankName === "learner" && "from-[#ADF5FF] to-[#54D1FF]",
         rankName === "fast feet" && "from-[#AAC8FF] to-[#3895FF]",
@@ -31,6 +50,9 @@ const StreakRank = ({ nutDashRank }: { nutDashRank: string }) => {
       <div
         className={cn(
           "animated absolute -left-full h-14 w-3 -translate-x-full rotate-[-24deg] blur",
+          rankName === "bronze" && "bg-[#FFE6CE]",
+          rankName === "silver" && "bg-white",
+          rankName === "gold" && "bg-[#FFF4C7]",
           rankName === "rookie" && "bg-[#F9F9F9]",
           rankName === "learner" && "bg-[#C1F7FF]",
           rankName === "fast feet" && "bg-[#A9C7FF]",
@@ -43,7 +65,12 @@ const StreakRank = ({ nutDashRank }: { nutDashRank: string }) => {
           rankName === "legend" && "bg-[#F5F2A5]",
         )}
       />
-      <span className="relative font-tt-hoves-expanded text-xs font-semibold text-[#070707]">
+      <span
+        className={cn(
+          "relative font-tt-hoves-expanded text-xs font-semibold",
+          hasRankColor ? "text-[#070707]" : "text-white",
+        )}
+      >
         {lang === "RU"
           ? rankName === "rookie"
             ? "Новичок"

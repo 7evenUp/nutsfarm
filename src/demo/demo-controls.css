@@ -1,0 +1,205 @@
+.demo-controls {
+  position: fixed;
+  top: 4px;
+  right: 12px;
+  z-index: 1001;
+  pointer-events: auto;
+  color: #fff;
+  font-family: system-ui, sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.demo-controls button {
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+}
+
+.demo-toggle {
+  padding: 4px 12px;
+  border: 1px solid #ffffff33;
+  border-radius: 999px;
+  background: #20142df2;
+  box-shadow: 0 8px 16px #0003;
+}
+
+.demo-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+.demo-toolbar .demo-toggle {
+  padding: 4px 7px;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.demo-scenarios {
+  margin-top: 14px;
+}
+
+.desktop-demo-controls .demo-scenarios {
+  margin-top: 0;
+}
+
+.desktop-demo-controls .demo-scenarios,
+.desktop-demo-controls .demo-resources {
+  padding: 20px;
+  border: 1px solid #ffffff18;
+  border-radius: 18px;
+  background: #111c29;
+}
+
+.demo-scenarios-title {
+  margin: 0 0 14px;
+  color: #eef3fa;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.desktop-demo-controls .demo-scenarios .demo-toolbar {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.desktop-demo-controls .demo-scenarios .demo-toggle {
+  padding: 7px 12px;
+  font-size: 12px;
+}
+
+.demo-streak-help {
+  max-width: 288px;
+  margin: 10px 0 0;
+  padding: 10px;
+  border-radius: 10px;
+  background: #101d2a;
+  color: #aab7c8;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.desktop-demo-controls .demo-streak-help {
+  max-width: none;
+  margin-top: 24px;
+  padding: 18px 0 0;
+  border-top: 1px solid #ffffff1c;
+  border-radius: 0;
+  background: transparent;
+  color: #c4cfdd;
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.demo-streak-help p {
+  margin: 0 0 14px;
+}
+
+.demo-streak-help p:last-child {
+  margin-bottom: 0;
+}
+
+.demo-streak {
+  background: #442716;
+  border-color: #f3b36b66;
+}
+
+.demo-freeze {
+  background: #13344b;
+  border-color: #84d9ff66;
+}
+
+.demo-controls button:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+
+.desktop-demo-controls .demo-toolbar {
+  justify-content: flex-start;
+}
+
+.demo-panel {
+  width: 288px;
+  max-width: 100%;
+  margin-top: 8px;
+  padding: 16px;
+  border: 1px solid #ffffff33;
+  border-radius: 16px;
+  background: #20142d;
+  box-shadow: 0 16px 32px #0004;
+}
+
+.demo-panel p {
+  margin: 0 0 12px;
+}
+
+.demo-description {
+  font-size: 14px;
+}
+
+.demo-panel button {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: transparent;
+}
+
+.demo-panel .demo-refill {
+  margin-bottom: 8px;
+  background: #754dca;
+}
+
+.demo-panel .demo-reset {
+  border-color: #ffffff33;
+}
+
+.demo-panel .demo-close {
+  margin-top: 12px;
+  color: #ffffffb3;
+}
+
+.demo-controls button:hover {
+  filter: brightness(1.15);
+}
+
+.demo-controls button:focus-visible {
+  outline: 2px solid #c5a6ff;
+  outline-offset: 3px;
+}
+
+.desktop-demo-controls {
+  display: none;
+}
+
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  .desktop-demo-controls {
+    display: block;
+    position: fixed;
+    top: 32px;
+    right: 32px;
+    width: min(320px, calc(50vw - 264px));
+    max-height: calc(100dvh - 64px);
+    overflow-y: auto;
+  }
+
+  .desktop-demo-controls .demo-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+}
+
+.desktop-demo-controls .demo-controls {
+  position: static;
+}
+
+.desktop-demo-controls .demo-controls-help {
+  margin: 0 0 12px;
+  color: #aab7c8;
+  font-size: 14px;
+  line-height: 1.65;
+}
