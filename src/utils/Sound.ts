@@ -1,9 +1,54 @@
 import { isSoundEnabled } from "./makeSoundFeedback"
 
-const context = new AudioContext()
+let context: AudioContext | null = null
+let masterGain: GainNode | null = null
+const buffers = new Map<string, Promise<AudioBuffer | null>>()
+
+function getContext() {
+  if (!context) {
+    context = new AudioContext()
+    masterGain = context.createGain()
+    masterGain.gain.value = isSoundEnabled() ? 1 : 0
+    masterGain.connect(context.destination)
+    // Browsers can suspend audio until a real user gesture, including after reload.
+    const unlock = () => {
+      void unlockAudio().then(() => {
+        if (context?.state === "running") {
+          window.removeEventListener("pointerdown", unlock)
+          window.removeEventListener("keydown", unlock)
+          window.removeEventListener("touchend", unlock)
+        }
+      })
+    }
+    window.addEventListener("pointerdown", unlock)
+    window.addEventListener("keydown", unlock)
+    window.addEventListener("touchend", unlock)
+  }
+  return context
+}
+
+export async function unlockAudio() {
+  try {
+    const audio = getContext()
+    if (audio.state === "suspended") await audio.resume()
+  } catch {
+    // Unsupported or blocked audio must not prevent opening a game or lesson.
+  }
+}
+
+if (typeof window !== "undefined") {
+  window.addEventListener("nutsfarm:sound-setting", () => {
+    if (context && masterGain) {
+      masterGain.gain.setValueAtTime(
+        isSoundEnabled() ? 1 : 0,
+        context.currentTime,
+      )
+    }
+  })
+}
 
 export class Sound {
-  url = ""
+  url: string
   buffer: AudioBuffer | null = null
   sources: AudioBufferSourceNode[] = []
 
@@ -11,62 +56,53 @@ export class Sound {
     this.url = url
   }
 
-  async load() {
+  async load(): Promise<AudioBuffer | null> {
     if (this.buffer) return this.buffer
-    // Original audio files lived on a retired server. Small local tones keep
-    // feedback playable without network requests or failed loading promises.
-    const duration = /victory|claimed|success|win|opening/.test(this.url) ? 0.35 : 0.09
-    const buffer = context.createBuffer(1, Math.floor(context.sampleRate * duration), context.sampleRate)
-    const samples = buffer.getChannelData(0)
-    const frequency = /incorrect|defeat|lose/.test(this.url) ? 180 : 660
-    for (let i = 0; i < samples.length; i++) {
-      const t = i / context.sampleRate
-      samples[i] = Math.sin(2 * Math.PI * frequency * t) * 0.07 * Math.max(0, 1 - t / duration)
+    let loading = buffers.get(this.url)
+    if (!loading) {
+      loading = (async () => {
+        try {
+          const audio = getContext()
+          const response = await fetch(this.url)
+          if (!response.ok) throw new Error(`HTTP ${response.status}`)
+          return await audio.decodeAudioData(await response.arrayBuffer())
+        } catch (error) {
+          buffers.delete(this.url)
+          console.warn(`Could not load audio: ${this.url}`, error)
+          return null
+        }
+      })()
+      buffers.set(this.url, loading)
     }
-    this.buffer = buffer
-    return buffer
+    this.buffer = await loading
+    if (!this.buffer) buffers.delete(this.url)
+    return this.buffer
   }
 
   play(loop = false, volume = 1, time = 0) {
-    if (!this.buffer) return
-    
-    // Проверяем, включен ли звук в настройках
-    if (!isSoundEnabled()) return
-
-    // Create a new sound source and assign it the loaded sound's buffer:
-    if (context.state === "suspended") void context.resume()
-    const source = context.createBufferSource()
-
+    if (!this.buffer || !isSoundEnabled()) return
+    // React effects may run twice; a track must never play over itself.
+    if (loop && this.sources.some((source) => source.loop)) return
+    const audio = getContext()
+    void unlockAudio()
+    const source = audio.createBufferSource()
+    const gain = audio.createGain()
     source.buffer = this.buffer
     source.loop = loop
-
-    // Keep track of all sources created, and stop tracking them once they finish playing:
-    const insertedAt = this.sources.push(source) - 1
-
+    gain.gain.value = Math.max(0, Math.min(1, volume))
+    source.connect(gain).connect(masterGain!)
+    this.sources.push(source)
     source.onended = () => {
-      source.stop(0)
-
-      this.sources.splice(insertedAt, 1)
+      this.sources = this.sources.filter((active) => active !== source)
+      source.disconnect()
+      gain.disconnect()
     }
-
-    // Create a gain node with the desired volume:
-    const gainNode = context.createGain()
-
-    gainNode.gain.value = volume
-
-    // Connect nodes:
-    source.connect(gainNode).connect(context.destination)
-
-    // Start playing at the desired time:
     source.start(time)
   }
 
   stop() {
-    // Stop any sources still playing:
-    this.sources.forEach((source) => {
-      source.stop(0)
-    })
-
+    const active = this.sources
     this.sources = []
+    active.forEach((source) => source.stop())
   }
 }

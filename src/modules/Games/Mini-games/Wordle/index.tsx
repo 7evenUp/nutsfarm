@@ -27,14 +27,7 @@ import { SkinType } from "@/types/cryptle"
 
 import { cn } from "@/lib/cn"
 
-const S3CloudUrl =
-  import.meta.env.VITE_IS_DEV_LOCAL === undefined
-    ? ""
-    : ""
-
-const BetSound = new Sound(
-  `${S3CloudUrl}/sounds/games/cryptle/cryptle-select-bet.mp3`,
-)
+const BetSound = new Sound("/sounds/games/cryptle/cryptle-select-bet.mp3")
 
 // @ts-expect-error Not-in-telegram-environment
 let cloudStorage
@@ -75,7 +68,9 @@ const WordleMenu = () => {
         let savedSkin: SkinType | null = null
 
         if (import.meta.env.VITE_IS_DEV_LOCAL !== undefined) {
-          savedSkin = readStorage("nutsfarm-demo:cryptleSkin") as SkinType | null
+          savedSkin = readStorage(
+            "nutsfarm-demo:cryptleSkin",
+          ) as SkinType | null
         } else {
           // @ts-expect-error Not-in-telegram-environment
           savedSkin = await cloudStorage.get("cryptleSkin")

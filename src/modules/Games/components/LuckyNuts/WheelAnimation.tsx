@@ -32,16 +32,8 @@ import { makeHapticFeedback } from "@/utils/makeHapticFeedback"
 
 import { WheelReward } from "@/types/wheel"
 
-const clickSound = new Sound(
-  import.meta.env.VITE_IS_DEV_LOCAL === undefined
-    ? "/sounds/games/wheel-click-new-1.mp3"
-    : "/sounds/games/wheel-click-new-1.mp3",
-)
-const winSound = new Sound(
-  import.meta.env.VITE_IS_DEV_LOCAL === undefined
-    ? "/sounds/games/wheel-win.mp3"
-    : "/sounds/games/wheel-win.mp3",
-)
+const clickSound = new Sound("/sounds/games/wheel-click-new-1.mp3")
+const winSound = new Sound("/sounds/games/wheel-win.mp3")
 
 const SPIN_COUNT = 9
 const DURATION_IN_SECONDS = 7
@@ -63,6 +55,7 @@ const WheelAnimation = ({
 }) => {
   const [isAnimationStarted, setIsAnimationStarted] = useState(false)
 
+  const finishTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const itemPassedRef = useRef(0)
 
   const position = useMemo(() => {
@@ -102,12 +95,13 @@ const WheelAnimation = ({
     }
 
     if (isPremium) {
-      setTimeout(
+      finishTimeoutRef.current = setTimeout(
         () => {
           // animate(rotate, endValue.get(), {
           //   duration: 0,
           //   type: "tween",
           // })
+          clickSound.stop()
           winSound.play(false, 0.3)
           setIsAnimationStarted(false)
           setOpen(false)
@@ -116,12 +110,13 @@ const WheelAnimation = ({
         DURATION_IN_SECONDS * 1000 - 2250,
       )
     } else {
-      setTimeout(
+      finishTimeoutRef.current = setTimeout(
         () => {
           animate(rotate, endValue.get(), {
             duration: 0,
             type: "tween",
           })
+          clickSound.stop()
           winSound.play(false, 0.3)
           setIsAnimationStarted(false)
           setOpen(false)
@@ -133,16 +128,25 @@ const WheelAnimation = ({
   }
 
   useEffect(() => {
-    Promise.all([clickSound.load(), winSound.load()])
-
     if (!open) {
       hideWheel()
       return
     }
-
-    setTimeout(() => {
-      onAnimationStart()
-    }, 1000)
+    let active = true
+    // Wait for both the opening delay and decoding before starting the wheel.
+    let startTimer: ReturnType<typeof setTimeout>
+    const delay = new Promise<void>((resolve) => {
+      startTimer = setTimeout(resolve, 1000)
+    })
+    void Promise.all([clickSound.load(), winSound.load(), delay]).then(() => {
+      if (active) onAnimationStart()
+    })
+    return () => {
+      active = false
+      clearTimeout(startTimer!)
+      if (finishTimeoutRef.current) clearTimeout(finishTimeoutRef.current)
+      clickSound.stop()
+    }
   }, [open])
 
   return (

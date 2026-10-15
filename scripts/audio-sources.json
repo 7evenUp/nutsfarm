@@ -1,0 +1,404 @@
+{
+  "source": "Production S3 URLs used by the original application",
+  "codeReferenceCommit": "a2b2ccb95fbeafe401e95d6be430fbefce23496e",
+  "files": [
+    {
+      "path": "/sounds/final.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/final.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/Earn/Lesson/EmptyLessonDialog.tsx",
+          "line": 12
+        },
+        {
+          "file": "src/modules/Earn/Lesson/LessonContent.tsx",
+          "line": 19
+        }
+      ]
+    },
+    {
+      "path": "/sounds/games/cryptle/cryptle-defeat.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/games/cryptle/cryptle-defeat.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/Games/Mini-games/Wordle/core/hooks/useWordle.ts",
+          "line": 40
+        }
+      ]
+    },
+    {
+      "path": "/sounds/games/cryptle/cryptle-enter-letter.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/games/cryptle/cryptle-enter-letter.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/Games/Mini-games/Wordle/core/hooks/useWordle.ts",
+          "line": 31
+        }
+      ]
+    },
+    {
+      "path": "/sounds/games/cryptle/cryptle-gameplay.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/games/cryptle/cryptle-gameplay.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/Games/components/Header/components/Music.tsx",
+          "line": 50
+        }
+      ]
+    },
+    {
+      "path": "/sounds/games/cryptle/cryptle-green-letter.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/games/cryptle/cryptle-green-letter.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/Games/Mini-games/Wordle/core/components/Board/index.tsx",
+          "line": 19
+        }
+      ]
+    },
+    {
+      "path": "/sounds/games/cryptle/cryptle-incorrect-word.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/games/cryptle/cryptle-incorrect-word.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/Games/Mini-games/Wordle/core/hooks/useWordle.ts",
+          "line": 34
+        }
+      ]
+    },
+    {
+      "path": "/sounds/games/cryptle/cryptle-menu.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/games/cryptle/cryptle-menu.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/Games/components/Header/components/Music.tsx",
+          "line": 47
+        }
+      ]
+    },
+    {
+      "path": "/sounds/games/cryptle/cryptle-select-bet.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/games/cryptle/cryptle-select-bet.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/Games/Mini-games/Wordle/index.tsx",
+          "line": 35
+        }
+      ]
+    },
+    {
+      "path": "/sounds/games/cryptle/cryptle-victory.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/games/cryptle/cryptle-victory.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/Games/Mini-games/Wordle/core/hooks/useWordle.ts",
+          "line": 37
+        }
+      ]
+    },
+    {
+      "path": "/sounds/games/cryptle/cryptle-yellow-letter.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/games/cryptle/cryptle-yellow-letter.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/Games/Mini-games/Wordle/core/components/Board/index.tsx",
+          "line": 22
+        }
+      ]
+    },
+    {
+      "path": "/sounds/games/flip-cards/flip-cards-correct-match.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/games/flip-cards/flip-cards-correct-match.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/Games/Mini-games/FlipCards/core/index.tsx",
+          "line": 56
+        }
+      ]
+    },
+    {
+      "path": "/sounds/games/flip-cards/flip-cards-defeat.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/games/flip-cards/flip-cards-defeat.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/Games/Mini-games/FlipCards/core/index.tsx",
+          "line": 53
+        }
+      ]
+    },
+    {
+      "path": "/sounds/games/flip-cards/flip-cards-gameplay.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/games/flip-cards/flip-cards-gameplay.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/Games/components/Header/components/Music.tsx",
+          "line": 44
+        }
+      ]
+    },
+    {
+      "path": "/sounds/games/flip-cards/flip-cards-menu.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/games/flip-cards/flip-cards-menu.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/Games/components/Header/components/Music.tsx",
+          "line": 41
+        }
+      ]
+    },
+    {
+      "path": "/sounds/games/flip-cards/flip-cards-pack-was-bought.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/games/flip-cards/flip-cards-pack-was-bought.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/Games/Mini-games/FlipCards/modals/Store.tsx",
+          "line": 38
+        }
+      ]
+    },
+    {
+      "path": "/sounds/games/flip-cards/flip-cards-select-difficulty.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/games/flip-cards/flip-cards-select-difficulty.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/Games/Mini-games/FlipCards/index.tsx",
+          "line": 44
+        }
+      ]
+    },
+    {
+      "path": "/sounds/games/flip-cards/flip-cards-uncorrect-match.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/games/flip-cards/flip-cards-uncorrect-match.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/Games/Mini-games/FlipCards/core/index.tsx",
+          "line": 59
+        }
+      ]
+    },
+    {
+      "path": "/sounds/games/flip-cards/flip-cards-victory.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/games/flip-cards/flip-cards-victory.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/Games/Mini-games/FlipCards/core/index.tsx",
+          "line": 50
+        }
+      ]
+    },
+    {
+      "path": "/sounds/games/puzzles/puzzles-correct-placement.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/games/puzzles/puzzles-correct-placement.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/Games/Mini-games/Puzzles/core/CorePuzzle.tsx",
+          "line": 67
+        }
+      ]
+    },
+    {
+      "path": "/sounds/games/puzzles/puzzles-defeat.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/games/puzzles/puzzles-defeat.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/Games/Mini-games/Puzzles/core/index.tsx",
+          "line": 53
+        }
+      ]
+    },
+    {
+      "path": "/sounds/games/puzzles/puzzles-gameplay.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/games/puzzles/puzzles-gameplay.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/Games/components/Header/components/Music.tsx",
+          "line": 38
+        }
+      ]
+    },
+    {
+      "path": "/sounds/games/puzzles/puzzles-incorrect-placement.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/games/puzzles/puzzles-incorrect-placement.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/Games/Mini-games/Puzzles/core/CorePuzzle.tsx",
+          "line": 70
+        }
+      ]
+    },
+    {
+      "path": "/sounds/games/puzzles/puzzles-menu.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/games/puzzles/puzzles-menu.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/Games/components/Header/components/Music.tsx",
+          "line": 35
+        }
+      ]
+    },
+    {
+      "path": "/sounds/games/puzzles/puzzles-select-difficulty.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/games/puzzles/puzzles-select-difficulty.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/Games/Mini-games/Puzzles/index.tsx",
+          "line": 41
+        }
+      ]
+    },
+    {
+      "path": "/sounds/games/puzzles/puzzles-took-piece.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/games/puzzles/puzzles-took-piece.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/Games/Mini-games/Puzzles/core/CorePuzzle.tsx",
+          "line": 64
+        }
+      ]
+    },
+    {
+      "path": "/sounds/games/puzzles/puzzles-victory.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/games/puzzles/puzzles-victory.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/Games/Mini-games/Puzzles/core/index.tsx",
+          "line": 50
+        }
+      ]
+    },
+    {
+      "path": "/sounds/games/wheel-click-new-1.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/games/wheel-click-new-1.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/Games/components/LuckyNuts/WheelAnimation.tsx",
+          "line": 37
+        },
+        {
+          "file": "src/modules/Games/components/LuckyNuts/WheelAnimation.tsx",
+          "line": 38
+        },
+        {
+          "file": "src/modules/Games/components/LuckyNuts/WheelAnimationMultiple.tsx",
+          "line": 37
+        },
+        {
+          "file": "src/modules/Games/components/LuckyNuts/WheelAnimationMultiple.tsx",
+          "line": 38
+        }
+      ]
+    },
+    {
+      "path": "/sounds/games/wheel-win.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/games/wheel-win.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/Games/components/LuckyNuts/WheelAnimation.tsx",
+          "line": 42
+        },
+        {
+          "file": "src/modules/Games/components/LuckyNuts/WheelAnimation.tsx",
+          "line": 43
+        },
+        {
+          "file": "src/modules/Games/components/LuckyNuts/WheelAnimationMultiple.tsx",
+          "line": 42
+        },
+        {
+          "file": "src/modules/Games/components/LuckyNuts/WheelAnimationMultiple.tsx",
+          "line": 43
+        }
+      ]
+    },
+    {
+      "path": "/sounds/next.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/next.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/Earn/Lesson/LessonContent.tsx",
+          "line": 22
+        }
+      ]
+    },
+    {
+      "path": "/sounds/no-health.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/no-health.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/Earn/Lesson/blocks/Failed.tsx",
+          "line": 22
+        }
+      ]
+    },
+    {
+      "path": "/sounds/nutspass/bonus-claimed.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/nutspass/bonus-claimed.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/NutsPassV2/index.tsx",
+          "line": 41
+        }
+      ]
+    },
+    {
+      "path": "/sounds/nutspass/coins-claimed.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/nutspass/coins-claimed.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/NutsPassV2/index.tsx",
+          "line": 42
+        }
+      ]
+    },
+    {
+      "path": "/sounds/nutspass/energy-claimed.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/nutspass/energy-claimed.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/NutsPassV2/index.tsx",
+          "line": 44
+        }
+      ]
+    },
+    {
+      "path": "/sounds/nutspass/free-opening.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/nutspass/free-opening.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/NutsPassV2/index.tsx",
+          "line": 37
+        }
+      ]
+    },
+    {
+      "path": "/sounds/nutspass/premium-opening.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/nutspass/premium-opening.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/NutsPassV2/index.tsx",
+          "line": 39
+        }
+      ]
+    },
+    {
+      "path": "/sounds/preview.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/preview.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/Earn/Lesson/LessonContent.tsx",
+          "line": 25
+        }
+      ]
+    },
+    {
+      "path": "/sounds/quiz-success.mp3",
+      "url": "https://s3-nutsfarm.crypton.xyz/sounds/quiz-success.mp3",
+      "usedBy": [
+        {
+          "file": "src/modules/Earn/Lesson/LessonContent.tsx",
+          "line": 28
+        }
+      ]
+    }
+  ]
+}

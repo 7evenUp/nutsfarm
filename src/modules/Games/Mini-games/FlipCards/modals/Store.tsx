@@ -29,13 +29,8 @@ import { Sound } from "@/utils/Sound"
 import { PurchaseItem } from "@/types/payment"
 import { sendMetrika } from "@/utils/sendMetrika"
 
-const S3CloudUrl =
-  import.meta.env.VITE_IS_DEV_LOCAL === undefined
-    ? ""
-    : ""
-
 const successBoughtSound = new Sound(
-  `${S3CloudUrl}/sounds/games/flip-cards/flip-cards-pack-was-bought.mp3`,
+  "/sounds/games/flip-cards/flip-cards-pack-was-bought.mp3",
 )
 
 const Store = ({

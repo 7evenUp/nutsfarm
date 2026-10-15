@@ -1,4 +1,11 @@
-import { Fragment, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
+import {
+  Fragment,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react"
 import { useRiveFile } from "@rive-app/react-webgl2"
 
 import DisabledLevelBadgePNG from "@/assets/passV2/icons/level-badge-disabled.png"
@@ -29,20 +36,11 @@ import { LevelRewardItem } from "@/types/nutspass"
 
 import { cn } from "@/lib/cn"
 
-const S3CloudUrl =
-  import.meta.env.VITE_IS_DEV_LOCAL === undefined
-    ? ""
-    : ""
-
-const freeSound = new Sound(`${S3CloudUrl}/sounds/nutspass/free-opening.mp3`)
-const premiumSound = new Sound(
-  `${S3CloudUrl}/sounds/nutspass/premium-opening.mp3`,
-)
-const bonusSound = new Sound(`${S3CloudUrl}/sounds/nutspass/bonus-claimed.mp3`)
-const coinsSound = new Sound(`${S3CloudUrl}/sounds/nutspass/coins-claimed.mp3`)
-const energySound = new Sound(
-  `${S3CloudUrl}/sounds/nutspass/energy-claimed.mp3`,
-)
+const freeSound = new Sound("/sounds/nutspass/free-opening.mp3")
+const premiumSound = new Sound("/sounds/nutspass/premium-opening.mp3")
+const bonusSound = new Sound("/sounds/nutspass/bonus-claimed.mp3")
+const coinsSound = new Sound("/sounds/nutspass/coins-claimed.mp3")
+const energySound = new Sound("/sounds/nutspass/energy-claimed.mp3")
 
 const NutsPassV2 = () => {
   const dispatch = useAppDispatch()

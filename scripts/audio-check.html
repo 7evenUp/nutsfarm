@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Audio check running</title>
+<h1>Original Nuts Farm audio verification</h1>
+<pre id="report">Decoding all recovered MP3 files…</pre>
+<script type="module">
+  import { Sound, unlockAudio } from "/src/utils/Sound.ts"
+  import { persistSoundEnabled } from "/src/utils/makeSoundFeedback.ts"
+  const report = document.getElementById("report")
+  try {
+    const { files } = await (await fetch("/sounds/manifest.json")).json()
+    const results = []
+    for (const file of files) {
+      const sound = new Sound(file.path)
+      const buffer = await sound.load()
+      if (!buffer || buffer.duration <= 0) throw Error(`Cannot decode ${file.path}`)
+      results.push({ file: file.path, seconds: Number(buffer.duration.toFixed(3)), channels: buffer.numberOfChannels, sampleRate: buffer.sampleRate })
+    }
+    const music = new Sound("/sounds/games/puzzles/puzzles-menu.mp3")
+    await music.load()
+    await unlockAudio()
+    music.play(true)
+    music.play(true)
+    if (music.sources.length !== 1) throw Error("Background loop duplication")
+    await persistSoundEnabled(false)
+    const muted = new Sound("/sounds/next.mp3")
+    await muted.load()
+    muted.play()
+    if (muted.sources.length !== 0) throw Error("Muted audio was started")
+    music.stop()
+    await persistSoundEnabled(true)
+    document.title = `Audio check passed (${results.length} MP3)`
+    report.dataset.state = "passed"
+    report.textContent = JSON.stringify({ status: "passed", decoded: results.length, playback: "loop, mute and stop passed", files: results }, null, 2)
+  } catch (error) {
+    document.title = "Audio check FAILED"
+    report.dataset.state = "failed"
+    report.textContent = String(error.stack || error)
+  }
+</script>
+</html>

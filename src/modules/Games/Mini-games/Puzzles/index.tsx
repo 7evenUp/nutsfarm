@@ -32,13 +32,8 @@ if (true) {
   }
 }
 
-const S3CloudUrl =
-  import.meta.env.VITE_IS_DEV_LOCAL === undefined
-    ? ""
-    : ""
-
 const clickSound = new Sound(
-  `${S3CloudUrl}/sounds/games/puzzles/puzzles-select-difficulty.mp3`,
+  "/sounds/games/puzzles/puzzles-select-difficulty.mp3",
 )
 
 const Puzzles = () => {

@@ -22,23 +22,14 @@ import {
   KEYBOARD_LETTERS_RU,
 } from "../constants"
 
-const S3CloudUrl =
-  import.meta.env.VITE_IS_DEV_LOCAL === undefined
-    ? ""
-    : ""
-
 const LetterEnterSound = new Sound(
-  `${S3CloudUrl}/sounds/games/cryptle/cryptle-enter-letter.mp3`,
+  "/sounds/games/cryptle/cryptle-enter-letter.mp3",
 )
 const InvalidWordSound = new Sound(
-  `${S3CloudUrl}/sounds/games/cryptle/cryptle-incorrect-word.mp3`,
+  "/sounds/games/cryptle/cryptle-incorrect-word.mp3",
 )
-const WinGameSound = new Sound(
-  `${S3CloudUrl}/sounds/games/cryptle/cryptle-victory.mp3`,
-)
-const LoseGameSound = new Sound(
-  `${S3CloudUrl}/sounds/games/cryptle/cryptle-defeat.mp3`,
-)
+const WinGameSound = new Sound("/sounds/games/cryptle/cryptle-victory.mp3")
+const LoseGameSound = new Sound("/sounds/games/cryptle/cryptle-defeat.mp3")
 
 interface UseWordleProps {
   gameData: UserGameLevelDifficultyInfo | null
@@ -75,7 +66,10 @@ async function loadDictionary(lang: "RU" | "EN"): Promise<Set<string>> {
     if (!response.ok) throw new Error("Dictionary load failed")
 
     const text: string = await response.text()
-    const words: string[] = text.split(/\r?\n/).map(word => word.trim().toLowerCase()).filter(Boolean)
+    const words: string[] = text
+      .split(/\r?\n/)
+      .map((word) => word.trim().toLowerCase())
+      .filter(Boolean)
 
     dictionaryCache[lang] = new Set(words)
     return dictionaryCache[lang]!

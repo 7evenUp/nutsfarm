@@ -55,19 +55,12 @@ type DraggingState =
     }
   | null
 
-const S3CloudUrl =
-  import.meta.env.VITE_IS_DEV_LOCAL === undefined
-    ? ""
-    : ""
-
-const pickSound = new Sound(
-  `${S3CloudUrl}/sounds/games/puzzles/puzzles-took-piece.mp3`,
-)
+const pickSound = new Sound("/sounds/games/puzzles/puzzles-took-piece.mp3")
 const setUpSound = new Sound(
-  `${S3CloudUrl}/sounds/games/puzzles/puzzles-correct-placement.mp3`,
+  "/sounds/games/puzzles/puzzles-correct-placement.mp3",
 )
 const wrongSound = new Sound(
-  `${S3CloudUrl}/sounds/games/puzzles/puzzles-incorrect-placement.mp3`,
+  "/sounds/games/puzzles/puzzles-incorrect-placement.mp3",
 )
 
 const PIECE_GAP = 10

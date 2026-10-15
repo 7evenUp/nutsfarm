@@ -10,16 +10,11 @@ import { SkinType } from "@/types/cryptle"
 
 import { Sound } from "@/utils/Sound"
 
-const S3CloudUrl =
-  import.meta.env.VITE_IS_DEV_LOCAL === undefined
-    ? ""
-    : ""
-
 const CorrectLetterSound = new Sound(
-  `${S3CloudUrl}/sounds/games/cryptle/cryptle-green-letter.mp3`,
+  "/sounds/games/cryptle/cryptle-green-letter.mp3",
 )
 const PresentLetterSound = new Sound(
-  `${S3CloudUrl}/sounds/games/cryptle/cryptle-yellow-letter.mp3`,
+  "/sounds/games/cryptle/cryptle-yellow-letter.mp3",
 )
 
 interface BoardProps {

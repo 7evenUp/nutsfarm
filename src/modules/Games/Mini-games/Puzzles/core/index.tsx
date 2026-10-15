@@ -42,17 +42,8 @@ if (true) {
   }
 }
 
-const S3CloudUrl =
-  import.meta.env.VITE_IS_DEV_LOCAL === undefined
-    ? ""
-    : ""
-
-const winSound = new Sound(
-  `${S3CloudUrl}/sounds/games/puzzles/puzzles-victory.mp3`,
-)
-const defeatSound = new Sound(
-  `${S3CloudUrl}/sounds/games/puzzles/puzzles-defeat.mp3`,
-)
+const winSound = new Sound("/sounds/games/puzzles/puzzles-victory.mp3")
+const defeatSound = new Sound("/sounds/games/puzzles/puzzles-defeat.mp3")
 
 const DELAY_OPEN_VICTORY_MODAL = 1000
 const DELAY_OPEN_DEFEAT_MODAL = 250
@@ -337,9 +328,7 @@ const PuzzlesGameplay = () => {
           startTime={startTime}
           setStartTime={setStartTime}
           imageSrc={
-            gameData.imageUrl ||
-            gameData.gameLevelImage ||
-            fallbackImage
+            gameData.imageUrl || gameData.gameLevelImage || fallbackImage
           }
           movesRef={movesRef}
         />

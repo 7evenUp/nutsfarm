@@ -41,22 +41,13 @@ if (true) {
   }
 }
 
-const S3CloudUrl =
-  import.meta.env.VITE_IS_DEV_LOCAL === undefined
-    ? ""
-    : ""
-
-const winSound = new Sound(
-  `${S3CloudUrl}/sounds/games/flip-cards/flip-cards-victory.mp3`,
-)
-const defeatSound = new Sound(
-  `${S3CloudUrl}/sounds/games/flip-cards/flip-cards-defeat.mp3`,
-)
+const winSound = new Sound("/sounds/games/flip-cards/flip-cards-victory.mp3")
+const defeatSound = new Sound("/sounds/games/flip-cards/flip-cards-defeat.mp3")
 const correctMatchSound = new Sound(
-  `${S3CloudUrl}/sounds/games/flip-cards/flip-cards-correct-match.mp3`,
+  "/sounds/games/flip-cards/flip-cards-correct-match.mp3",
 )
 const uncorrectMatchSound = new Sound(
-  `${S3CloudUrl}/sounds/games/flip-cards/flip-cards-uncorrect-match.mp3`,
+  "/sounds/games/flip-cards/flip-cards-uncorrect-match.mp3",
 )
 
 const DELAY_OPEN_VICTORY_MODAL = 1000
