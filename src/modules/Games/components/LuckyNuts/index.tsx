@@ -54,7 +54,7 @@ const LuckyNuts = ({ children }: { children: React.ReactNode }) => {
   const [open, setOpen] = useState(false)
   const [multipleLocked, setMultipleLocked] = useState(false)
   const [oneLocked, setOneLocked] = useState(false)
-  const [activeTab, setActiveTab] = useState<"free" | "premium">("premium")
+  const [activeTab, setActiveTab] = useState<"free" | "premium">("free")
   const [paymentStatusOpened, setPaymentStatusOpened] = useState(false)
   const [wheelOpen, setWheelOpen] = useState(false)
   const [multipleWheelOpen, setMultipleWheelOpen] = useState(false)
@@ -216,16 +216,16 @@ const LuckyNuts = ({ children }: { children: React.ReactNode }) => {
           >
             <TabsList className="flex h-[34px] w-fit items-center gap-1 rounded-[10px] bg-[#17202D] px-1">
               <TabsTrigger
-                value="premium"
-                className="h-[26px] w-[108px] whitespace-nowrap rounded-[10px] text-xs font-medium text-white/30 transition-colors data-[state=active]:bg-[#252E3D] data-[state=active]:text-white"
-              >
-                Premium spin
-              </TabsTrigger>
-              <TabsTrigger
                 value="free"
                 className="h-[26px] w-[108px] whitespace-nowrap rounded-[10px] text-xs font-medium text-white/30 transition-colors data-[state=active]:bg-[#252E3D] data-[state=active]:text-white"
               >
                 Free spin
+              </TabsTrigger>
+              <TabsTrigger
+                value="premium"
+                className="h-[26px] w-[108px] whitespace-nowrap rounded-[10px] text-xs font-medium text-white/30 transition-colors data-[state=active]:bg-[#252E3D] data-[state=active]:text-white"
+              >
+                Premium spin
               </TabsTrigger>
             </TabsList>
             <TabsContent
